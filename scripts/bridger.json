@@ -1,0 +1,17 @@
+{
+  "name": "Bridger: Western",
+  "icon": "🐴",
+  "description": "STEEL BALL RUN REFERENCE",
+  "price": "TBD",
+  "media": [],
+  "tags": ["In development", "Source"],
+  "tagStyles": ["tag-dev", "tag-source"],
+  "features": [
+    "Auto-race completion",
+    "ESP for horses & players",
+    "Auto-collect items",
+    "Speed hacks",
+    "Full source code included"
+  ],
+  "status": "development"
+}

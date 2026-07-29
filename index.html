@@ -1,220 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WaifuOS</title>
-    <link rel="icon" href="./public/icons/logo.svg">
-
-    <link rel="stylesheet" href="./src/styles/reset.css">
-    <link rel="stylesheet" href="./src/styles/system.css">
-    <link rel="stylesheet" href="./src/styles/taskbar.css">
-    <link rel="stylesheet" href="./src/styles/desktop.css">
-    <link rel="stylesheet" href="./src/styles/window.css">
-    <link rel="stylesheet" href="./src/styles/startmenu.css">
-    <link rel="stylesheet" href="./src/styles/boot.css">
-    <link rel="stylesheet" href="./src/styles/login.css">
-    <link rel="stylesheet" href="./src/styles/clippy.css">
-
-    <link rel="stylesheet" href="./src/styles/about.css">
-    <link rel="stylesheet" href="./src/styles/terminal.css">
-    <link rel="stylesheet" href="./src/styles/wallpaper.css">
-    <link rel="stylesheet" href="./src/styles/mediaplayer.css">
-    <link rel="stylesheet" href="./src/styles/crt.css">
-    <link rel="stylesheet" href="./src/styles/waifuviewer.css">
-    <link rel="stylesheet" href="./src/styles/calculator.css">
-    <link rel="stylesheet" href="./src/styles/patchnotes.css">
-    <link rel="stylesheet" href="./src/styles/notepad.css">
-    <link rel="stylesheet" href="./src/styles/zezinpaint.css">
-    <link rel="stylesheet" href="./src/styles/internet.css">
-
-    <link rel="stylesheet" href="./src/styles/games/dosgames.css">
-    <link rel="stylesheet" href="./src/styles/games/aracaju.css">
-    <link rel="stylesheet" href="./src/styles/games/minesweeper.css">
-    <link rel="stylesheet" href="./src/styles/games/pinball.css">
-
-    <link rel="stylesheet" href="./src/styles/pages/theme-hypnospace.css">
-    <link rel="stylesheet" href="./src/styles/pages/directory.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>rezi.lol</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0b0b0f;
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: inherit; text-decoration: none; }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid #1a1a24;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+    .logo span { color: #a855f7; }
+    nav { display: flex; gap: 2rem; }
+    nav a {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #888;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: #fff; }
+    main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 2rem; text-align: center; }
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+    }
+    .hero h1 span { color: #a855f7; }
+    .hero p {
+      margin-top: 1rem;
+      font-size: 1.15rem;
+      color: #666;
+      max-width: 500px;
+    }
+    .buttons { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: #a855f7;
+      color: #fff;
+    }
+    .btn-primary:hover { background: #9333ea; transform: translateY(-2px); }
+    .btn-secondary {
+      background: #1a1a24;
+      color: #e0e0e0;
+    }
+    .btn-secondary:hover { background: #252530; transform: translateY(-2px); }
+    footer {
+      padding: 1.5rem 2rem;
+      border-top: 1px solid #1a1a24;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #444;
+    }
+  </style>
 </head>
-
 <body>
-
-    <body>
-        <div id="boot-screen">
-            <div class="bios-header">
-                <div class="bios-text">
-                    <div>Award Modular BIOS v4.51PG, An Energy Star Ally</div>
-                    <div>Copyright (C) 1984-98, Waifu Inc.</div>
-                </div>
-                <img src="public/icons/logo.svg" class="bios-logo-img" alt="Energy Star">
-            </div>
-
-            <div class="bios-info">
-                Main Processor : 486DX2-66<br>
-                Video Adapter : ASCII Graphics Adapter<br>
-                Memory Test: <span id="bios-mem">0</span>
-            </div>
-
-            <div class="bios-drives">
-                Detecting Primary Master ... WAIFU-HD 20GB<br>
-                Detecting Primary Slave ... None<br>
-                Detecting Secondary Master ... CD-ROM Drive<br>
-                Detecting Secondary Slave ... None
-            </div>
-
-            <div class="bios-footer" id="bios-footer" style="display:none">
-                Starting Waifu 98 SE...
-            </div>
-
-            <div class="bios-cursor"></div>
-        </div>
-
-        <div class="desktop-area">
-            <div class="desktop-icon" tabindex="0" ondblclick="openWindow('window-about')">
-                <img src="./public/icons/sobreMim.svg" alt="About Me">
-                <span>About Me</span>
-            </div>
-
-            <div class="desktop-icon" tabindex="0" ondblclick="openWindow('window-mediaplayer')">
-                <img src="./public/icons/mediaplayer.svg" alt="Media Player">
-                <span>Media Player</span>
-            </div>
-
-            <div class="desktop-icon" tabindex="0" ondblclick="openWindow('window-internet')">
-                <img src="./public/icons/internet.png" alt="My Projects">
-                <span>My Projects</span>
-            </div>
-
-            <div class="desktop-icon" tabindex="0" ondblclick="openWindow('window-patchnotes')">
-                <img src="./public/icons/patchnotes.svg" alt="Patch Notes">
-                <span>Patch Notes</span>
-            </div>
-
-        </div>
-
-        <div class="start-menu" id="start-menu">
-            <div class="sidebar">
-                <span class="sidebar-text"><strong>WaifuOS</strong> 98 SE</span>
-            </div>
-
-            <div class="menu-items">
-
-                <div class="menu-item has-submenu">
-                    <img src="./public/icons/programs.svg" class="menu-icon">
-                    <span style="flex: 1;">Programs</span>
-                    <span class="menu-arrow">▶</span>
-
-                    <div class="submenu">
-                        <div class="menu-item" onclick="openWindow('window-patchnotes'); toggleStartMenu()">
-                            <img src="./public/icons/patchnotes.svg" class="menu-icon">
-                            <span>Patch Notes</span>
-                        </div>
-
-                        <div class="menu-item" onclick="openWindow('window-terminal'); toggleStartMenu()">
-                            <img src="./public/icons/zenzinDOS.svg" class="menu-icon">
-                            <span>Waifu-DOS Prompt</span>
-                        </div>
-
-                        <div class="menu-item" onclick="openWindow('window-calculator'); toggleStartMenu()">
-                            <img src="./public/icons/calculator.ico" class="menu-icon">
-                            <span>Calculator</span>
-                        </div>
-
-                        <div class="menu-item" onclick="openWindow('window-notepad'); toggleStartMenu()">
-                            <img src="./public/icons/notepad.ico" class="menu-icon">
-                            <span>Notepad</span>
-                        </div>
-
-                        <div class="menu-item" onclick="openWindow('window-waifuviewer'); toggleStartMenu()">
-                            <img src="./public/icons/waifuviewer.svg" class="menu-icon">
-                            <span>Waifu Viewer</span>
-                        </div>
-
-                        <div class="menu-item" onclick="openWindow('window-zezinpaint'); toggleStartMenu()">
-                            <img src="./public/icons/zezinpaint.webp" class="menu-icon">
-                            <span>WaifuPaint</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="menu-item has-submenu">
-                    <img src="./public/icons/games.ico" class="menu-icon">
-                    <span style="flex: 1">Games</span>
-                    <span class="menu-arrow">▶</span>
-
-                    <div class="submenu" style="margin-top: 4px;">
-                        <div class="menu-item" onclick="openWindow('window-dosgames'); toggleStartMenu()">
-                            <img src="./public/icons/dosgames.svg" class="menu-icon">
-                            <span>MS-DOS GAMES</span>
-                        </div>
-                        <div class="menu-item" onclick="openWindow('window-aracaju'); toggleStartMenu()">
-                            <img src="./public/icons/aracaju.ico" class="menu-icon">
-                            <span>GTA Vice City</span>
-                        </div>
-                        <div class="menu-item" onclick="openWindow('window-minesweeper'); toggleStartMenu()">
-                            <img src="./public/icons/minewsweeper.png" class="menu-icon">
-                            <span>Minesweeper</span>
-                        </div>
-                        <div class="menu-item" onclick="openWindow('window-pinball'); toggleStartMenu()">
-                            <img src="./public/icons/pinball.svg" class="menu-icon">
-                            <span>3D Pinball</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="menu-separator"></div>
-                <div class="menu-item" onclick="openWindow('window-about'); toggleStartMenu()">
-                    <img src="./public/icons/sobreMim.svg" class="menu-icon">
-                    <span>About Me</span>
-                </div>
-
-                <div class="menu-item" onclick="window.open('https://github.com/submissively', '_blank')">
-                    <img src="./public/icons/github.svg" class="menu-icon">
-                    <span>GitHub Repository</span>
-                </div>
-
-                <div class="menu-item" onclick="window.open('https://github.com/submissively', '_blank')">
-                    <img src="./public/icons/logo.svg" class="menu-icon">
-                    <span>My GitHub</span>
-                </div>
-                <div class="menu-separator"></div>
-
-                <div class="menu-item" onclick="openWindow('window-mediaplayer'); toggleStartMenu()">
-                    <img src="./public/icons/mediaplayer.svg" class="menu-icon"> <span>Media Player</span>
-                </div>
-
-                <div class="menu-item" onclick="openWindow('window-internet'); toggleStartMenu()">
-                    <img src="./public/icons/internet.png" class="menu-icon">
-                    <span>My Projects</span>
-                </div>
-
-                <div class="menu-separator"></div>
-
-                <div class="menu-item" onclick="openWindow('window-wallpaper'); toggleStartMenu()">
-                    <img src="./public/icons/wallpaper.ico" class="menu-icon"> <span>Display Properties</span>
-                </div>
-
-                <div class="menu-item" onclick="location.reload()">
-                    <img src="./public/icons/restart.ico" class="menu-icon">
-                    <span>Restart System...</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="taskbar">
-            <button class="start-button">
-                <img src="./public/icons/logo.svg" alt="" class="start-icon">
-                <span class="start-text">Start</span>
-            </button>
-            <div class="taskbar-divider"></div>
-            <div class="tasks-area"></div>
-            <div class="tray-area">
-                <div class="clock">vasco</div>
-            </div>
-        </div>
-
-        <div class="crt-overlay"></div>
-
-        <script type="module" src="./src/App.js"></script>
-    </body>
-
+  <header>
+    <div class="logo">rezi<span>.lol</span></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="scripts.html">Scripts</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <h1 id="site-title">rezi<span>.lol</span></h1>
+      <p id="site-tagline">Premium scripts & commissions for Roblox. Quality you can trust.</p>
+      <div class="buttons">
+        <a href="scripts.html" class="btn btn-primary">View Scripts</a>
+        <a href="scripts.html" class="btn btn-secondary">Commissions</a>
+      </div>
+    </section>
+  </main>
+  <footer id="site-footer">All rights are rezi'd</footer>
+  <script>
+    fetch('data.json').then(r => r.json()).then(d => {
+      document.getElementById('site-title').innerHTML = d.site.title.replace('.lol', '<span>.lol</span>');
+      document.getElementById('site-tagline').textContent = d.site.tagline;
+      document.getElementById('site-footer').textContent = d.site.footer;
+    });
+  </script>
+</body>
 </html>

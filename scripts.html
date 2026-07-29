@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scripts - rezi.lol</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0b0b0f;
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: inherit; text-decoration: none; }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid #1a1a24;
+    }
+    .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; color: #fff; }
+    .logo span { color: #a855f7; }
+    nav { display: flex; gap: 2rem; }
+    nav a { font-weight: 600; font-size: 0.9rem; color: #888; transition: color 0.2s; }
+    nav a:hover, nav a.active { color: #fff; }
+    main { flex: 1; padding: 3rem 2rem; max-width: 1100px; margin: 0 auto; width: 100%; }
+    .section-title { font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+    .section-sub { color: #666; margin-bottom: 2rem; font-size: 1rem; }
+
+    .hero-box {
+      text-align: center; padding: 3rem 2rem;
+      border: 1px solid #1a1a24; border-radius: 16px; margin-bottom: 3rem;
+      background: linear-gradient(135deg, #0f0f1a 0%, #14142a 100%);
+    }
+    .hero-box h2 { font-size: 2.5rem; font-weight: 800; color: #fff; }
+    .hero-box h2 span { color: #a855f7; }
+    .hero-box p { color: #888; margin-top: 0.75rem; font-size: 1.05rem; }
+    .hero-box .btn { margin-top: 1.5rem; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem; border-radius: 10px;
+      font-weight: 700; font-size: 0.95rem; transition: all 0.2s;
+    }
+    .btn-primary { background: #a855f7; color: #fff; }
+    .btn-primary:hover { background: #9333ea; transform: translateY(-2px); }
+    .btn-secondary { background: #1a1a24; color: #e0e0e0; }
+    .btn-secondary:hover { background: #252530; transform: translateY(-2px); }
+    .btn-discord { background: #5865f2; color: #fff; }
+    .btn-discord:hover { background: #4752c4; transform: translateY(-2px); }
+
+    .payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-bottom: 1rem; }
+    .payment-card {
+      border: 1px solid #1a1a24; border-radius: 14px; padding: 2rem;
+      text-align: center; background: #0f0f18; transition: all 0.2s;
+    }
+    .payment-card:hover { border-color: #a855f7; transform: translateY(-3px); }
+    .payment-card .icon { font-size: 2.2rem; margin-bottom: 0.75rem; }
+    .payment-card h3 { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+    .payment-card p { font-size: 0.85rem; color: #666; margin-bottom: 1.1rem; }
+    .payment-card .btn { padding: 0.65rem 1.5rem; font-size: 0.85rem; }
+    .subtext { margin-top: 1rem; font-size: 0.82rem; color: #555; text-align: center; }
+
+    .scripts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+    .script-card {
+      border: 1px solid #1a1a24; border-radius: 14px;
+      background: #0f0f18; overflow: hidden; transition: all 0.2s;
+    }
+    .script-card:hover { border-color: #a855f7; transform: translateY(-3px); }
+    .script-media {
+      width: 100%; aspect-ratio: 16/9;
+      background: #050508; display: flex; align-items: center; justify-content: center;
+      overflow: hidden; border-bottom: 1px solid #1a1a24;
+    }
+    .script-media img, .script-media video, .script-media iframe {
+      width: 100%; height: 100%; object-fit: cover; border: none;
+    }
+    .script-media .no-media {
+      color: #333; font-size: 0.85rem;
+    }
+    .script-body { padding: 1.5rem; }
+    .script-body .header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+    .script-body .header .game-icon { font-size: 1.5rem; }
+    .script-body .header h3 { font-size: 1.15rem; font-weight: 700; color: #fff; }
+    .script-body .header .price-tag {
+      margin-left: auto; font-size: 0.75rem; font-weight: 700;
+      padding: 0.25rem 0.7rem; border-radius: 6px;
+      background: #1a1a24; color: #a855f7; white-space: nowrap;
+    }
+    .script-body .desc { font-size: 0.85rem; color: #666; margin: 0.4rem 0 1rem; line-height: 1.5; }
+    .script-body .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .tag { font-size: 0.75rem; padding: 0.25rem 0.7rem; border-radius: 6px; font-weight: 600; }
+    .tag-free { background: #14532d; color: #4ade80; }
+    .tag-paid { background: #3b0764; color: #c084fc; }
+    .tag-dev { background: #1c1917; color: #fb923c; }
+    .tag-undetected { background: #0f172a; color: #38bdf8; }
+    .tag-source { background: #1e1b2e; color: #a78bfa; }
+
+    .features-list { list-style: none; }
+    .features-list li {
+      font-size: 0.85rem; color: #999; padding: 0.35rem 0;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .features-list li::before { content: "▸"; color: #a855f7; font-weight: 700; }
+
+    .commission-box {
+      border: 1px solid #1a1a24; border-radius: 14px; padding: 2.5rem;
+      text-align: center; background: linear-gradient(135deg, #0f0f1a, #1a0f2e);
+      margin-bottom: 3rem;
+    }
+    .commission-box h2 { font-size: 1.6rem; color: #fff; font-weight: 800; }
+    .commission-box h2 span { color: #a855f7; }
+    .commission-box p { color: #888; margin: 0.75rem 0 1.5rem; max-width: 550px; margin-inline: auto; }
+
+    .loader-box {
+      border: 1px solid #1a1a24; border-radius: 14px; padding: 2rem;
+      background: #0a0a12; margin-bottom: 2rem;
+    }
+    .loader-box h3 { font-size: 1.1rem; color: #fff; font-weight: 700; margin-bottom: 0.5rem; }
+    .code-block {
+      background: #050508; border: 1px solid #1a1a24; border-radius: 10px;
+      padding: 1rem 1.25rem; font-family: 'Courier New', monospace;
+      font-size: 0.85rem; color: #a855f7;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; margin-top: 0.75rem; word-break: break-all;
+    }
+    .code-block .copy-btn {
+      background: #1a1a24; border: none; color: #e0e0e0;
+      padding: 0.4rem 1rem; border-radius: 6px; font-weight: 600;
+      font-size: 0.8rem; cursor: pointer; white-space: nowrap; transition: background 0.2s;
+    }
+    .code-block .copy-btn:hover { background: #252530; }
+
+    .discord-box {
+      border: 1px solid #1a1a24; border-radius: 14px; padding: 2.5rem;
+      text-align: center; background: #0f0f18; margin-bottom: 2rem;
+    }
+    .discord-box h2 { font-size: 1.6rem; color: #fff; font-weight: 800; }
+    .discord-box h2 span { color: #5865f2; }
+    .discord-box p { color: #888; margin: 0.75rem 0 1.5rem; }
+
+    footer {
+      padding: 1.5rem 2rem; border-top: 1px solid #1a1a24;
+      text-align: center; font-size: 0.8rem; color: #444;
+    }
+    .hidden { display: none !important; }
+
+    @media (max-width: 600px) {
+      header { flex-direction: column; gap: 1rem; }
+      .hero-box h2 { font-size: 1.8rem; }
+      .section-title { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">rezi<span>.lol</span></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="scripts.html" class="active">Scripts</a>
+    </nav>
+  </header>
+  <main>
+    <div class="hero-box">
+      <h2>rezi<span>.lol</span> Scripts</h2>
+      <p>Premium scripts & commissions for Roblox. Source code included with every purchase.</p>
+      <a href="#payment" class="btn btn-primary">Buy Now</a>
+    </div>
+
+    <h3 class="section-title">Available Scripts</h3>
+    <p class="section-sub">Every purchase includes full source code.</p>
+    <div class="scripts-grid" id="scripts-grid"></div>
+
+    <div class="commission-box hidden" id="commission-box">
+      <h2 id="comm-title">Custom <span>Commissions</span></h2>
+      <p id="comm-desc"></p>
+      <a href="#payment" class="btn btn-primary">Order a Commission</a>
+    </div>
+
+    <div class="payment-section">
+      <h3 class="section-title">Payment Methods</h3>
+      <p class="section-sub">Choose the option that works best for you.</p>
+      <div class="payment-grid" id="payment-grid"></div>
+      <p class="subtext">Beta includes IP whitelist. You can also play from up to 2 extra accounts that do not own Beta, as long as they use the same IP.</p>
+    </div>
+
+    <div class="discord-box" id="discord-box">
+      <h2 id="discord-title">Join the <span>Discord</span></h2>
+      <p id="discord-desc"></p>
+      <a id="discord-link" href="#" class="btn btn-discord" target="_blank">Join Discord</a>
+    </div>
+
+    <div class="loader-box">
+      <h3 id="loader-label">rezi.lol Loader</h3>
+      <div class="code-block">
+        <span id="loader-code"></span>
+        <button class="copy-btn" id="copy-btn">Copy</button>
+      </div>
+    </div>
+  </main>
+  <footer id="site-footer"></footer>
+
+  <script>
+    async function loadSite() {
+      const d = await fetch('data.json').then(r => r.json());
+
+      // Scripts — load from /scripts/index.json
+      const manifest = await fetch('scripts/index.json').then(r => r.json());
+      const grid = document.getElementById('scripts-grid');
+
+      for (const file of manifest) {
+        const s = await fetch('scripts/' + file).then(r => r.json());
+
+        // Media block
+        let mediaHtml = '<div class="no-media">No preview</div>';
+        if (s.media && s.media.length > 0) {
+          const m = s.media[0];
+          if (m.type === 'video') {
+            mediaHtml = `<iframe src="${m.src}" allowfullscreen loading="lazy"></iframe>`;
+          } else if (m.type === 'gif') {
+            mediaHtml = `<img src="${m.src}" alt="${s.name} demo" loading="lazy" />`;
+          } else if (m.type === 'image') {
+            mediaHtml = `<img src="${m.src}" alt="${s.name}" loading="lazy" />`;
+          }
+        }
+
+        // Tags
+        const tags = s.tags.map((t, i) => `<span class="tag ${s.tagStyles[i] || ''}">${t}</span>`).join('');
+
+        // Features
+        const features = s.features.map(f => `<li>${f}</li>`).join('');
+
+        grid.innerHTML += `
+          <div class="script-card">
+            <div class="script-media">${mediaHtml}</div>
+            <div class="script-body">
+              <div class="header">
+                <span class="game-icon">${s.icon}</span>
+                <h3>${s.name}</h3>
+                <span class="price-tag">${s.price}</span>
+              </div>
+              <p class="desc">${s.description}</p>
+              <div class="tags">${tags}</div>
+              <ul class="features-list">${features}</ul>
+            </div>
+          </div>
+        `;
+      }
+
+      // Commissions
+      if (d.commissions.enabled) {
+        const box = document.getElementById('commission-box');
+        box.classList.remove('hidden');
+        document.getElementById('comm-title').innerHTML = d.commissions.title.replace('Commissions', '<span>Commissions</span>');
+        document.getElementById('comm-desc').textContent = d.commissions.description;
+      }
+
+      // Payments
+      const payGrid = document.getElementById('payment-grid');
+      d.payments.forEach(p => {
+        const btn = p.url
+          ? `<a href="${p.url}" class="btn btn-secondary" target="_blank">${p.button}</a>`
+          : `<a href="#discord" class="btn btn-secondary">${p.button}</a>`;
+        payGrid.innerHTML += `
+          <div class="payment-card">
+            <div class="icon">${p.icon}</div>
+            <h3>${p.name}</h3>
+            <p>${p.description}</p>
+            ${btn}
+          </div>
+        `;
+      });
+
+      // Discord
+      document.getElementById('discord-title').innerHTML = d.discord.title.replace('Discord', '<span>Discord</span>');
+      document.getElementById('discord-desc').textContent = d.discord.description;
+      document.getElementById('discord-link').href = d.discord.invite;
+
+      // Loader
+      const code = `loadstring(game:HttpGet("${d.loader.url}"))()`;
+      document.getElementById('loader-label').textContent = d.loader.label;
+      document.getElementById('loader-code').textContent = code;
+      document.getElementById('copy-btn').onclick = () => navigator.clipboard.writeText(code);
+
+      // Footer
+      const footer = document.getElementById('site-footer');
+      footer.textContent = `Discord: ${d.site.contact.discord} · Telegram: ${d.site.contact.telegram} · ${d.site.footer}`;
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function(e) {
+        const t = document.querySelector(this.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+
+    loadSite();
+  </script>
+</body>
+</html>

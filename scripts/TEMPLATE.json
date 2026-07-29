@@ -1,0 +1,19 @@
+{
+  "name": "Script Name",
+  "icon": "🦑",
+  "description": "Short description of what the script does",
+  "price": "Free / Paid / TBD",
+  "media": [
+    { "type": "gif", "src": "media/your-file.gif" },
+    { "type": "image", "src": "media/your-file.png" },
+    { "type": "video", "src": "https://www.youtube.com/embed/VIDEO_ID" }
+  ],
+  "tags": ["Undetected", "Free", "Source"],
+  "tagStyles": ["tag-undetected", "tag-free", "tag-source"],
+  "features": [
+    "Feature 1",
+    "Feature 2",
+    "Feature 3"
+  ],
+  "status": "released"
+}
