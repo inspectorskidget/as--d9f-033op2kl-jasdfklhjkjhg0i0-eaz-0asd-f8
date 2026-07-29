@@ -15,34 +15,27 @@
   },
   "payments": [
     {
-      "icon": "💰",
-      "name": "FunPay",
-      "description": "Fastest manual purchase flow. Get your script delivered quickly.",
-      "url": "https://funpay.com/users/1300526/",
-      "button": "Buy via FunPay"
-    },
-    {
       "icon": "🧱",
       "name": "Robux",
-      "description": "Purchase via Roblox game pass for automatic whitelist processing.",
-      "url": "",
+      "description": "Purchase via Roblox shirt via ticket in the discord server.",
+      "url": "https://discord.gg/9xRq54BGFJ",
       "button": "Buy via Roblox"
     },
     {
       "icon": "🪙",
       "name": "Crypto / SBP",
       "description": "Prefer crypto or SBP? Open a ticket in the Discord server.",
-      "url": "",
+      "url": "https://discord.gg/9xRq54BGFJ",
       "button": "Buy via Discord"
     }
   ],
   "discord": {
-    "invite": "https://discord.gg/your-invite",
+    "invite": "https://discord.gg/9xRq54BGFJ",
     "title": "Join the Discord",
     "description": "Get support, request commissions, see updates, and connect with the community."
   },
   "loader": {
     "url": "https://rezi.lol/loader.lua",
-    "label": "rezi.lol Loader"
+    "label": "rezi.lol Loader DOESNT WORK CURRENTLY"
   }
 }
