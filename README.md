@@ -1,4 +1,4 @@
-# rezi.lol
+# rezi.lol THIS IS VIBECODED SKID SLOP
 
 ## How to customize
 
