@@ -7,6 +7,7 @@ import { initStartMenu } from './modules/startMenu.js';
 import { runBootSequence } from './modules/boot.js';
 import { initLogin } from './modules/login.js';
 import { initClippy } from './modules/clippy.js';
+import { initDiscordStatus } from './modules/discordStatus.js';
 
 window.openWindow = openWindow;
 window.closeWindow = closeWindow;
@@ -22,6 +23,8 @@ async function initSystem() {
     await initLogin();
 
     initClippy();
+
+    initDiscordStatus();
 
     initSelectionBox();
     setupDesktopIcons();

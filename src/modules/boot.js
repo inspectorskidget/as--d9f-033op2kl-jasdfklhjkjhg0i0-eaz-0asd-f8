@@ -136,10 +136,10 @@ function runKernelLog(done) {
     }
 
     const lines = [
-        { text: 'Booting \'waifuOS 98 SE, with Linux 6.8.0-waifu-amd64\'' },
+        { text: 'Booting \'waifuOS 98 SE, with Linux 6.8.0-arch1-1-waifu\'' },
         { text: 'boot', cls: 'cmd' },
-        { text: '[    0.000000] Linux version 6.8.0-waifu-amd64 (buildbot@waifu.team) (gcc (Debian 12.2.0-14) 12.2.0) #1 SMP PREEMPT_DYNAMIC waifuOS 98 SE', cls: 'ok' },
-        { text: 'Command line: BOOT_IMAGE=/boot/vmlinuz-6.8.0-waifu-amd64 root=UUID=waifu-98se ro quiet splash' },
+        { text: '[    0.000000] Linux version 6.8.0-arch1-1-waifu (buildbot@waifu.team) (gcc (GCC) 14.2.1 20250207) #1 SMP PREEMPT_DYNAMIC waifuOS 98 SE (Arch base)', cls: 'ok' },
+        { text: 'Command line: BOOT_IMAGE=/boot/vmlinuz-linux-waifu root=UUID=waifu-98se ro quiet splash' },
         { text: 'KERNEL supported cpus:' },
         { text: '  Intel GenuineIntel 12th Gen Core i5-12600KF (' + cores + ')', cls: 'ok' },
         { text: 'BIOS-provided physical RAM map:' },
@@ -197,7 +197,7 @@ function runKernelLog(done) {
         screen.scrollTop = screen.scrollHeight;
 
         const head = document.createElement('div');
-        head.innerHTML = 'waifuOS 98 SE <span class="k-time">6.8.0-waifu-amd64</span> tty1';
+        head.innerHTML = 'waifuOS 98 SE <span class="k-time">6.8.0-arch1-1-waifu</span> tty1';
         log.appendChild(head);
 
         const line1 = document.createElement('div');

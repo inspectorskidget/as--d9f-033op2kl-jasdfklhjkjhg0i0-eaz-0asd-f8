@@ -45,6 +45,66 @@
 .term-fail { color: #f87171; font-weight: bold; }
 .term-dim { color: #777; }
 
+/* terminal palette (bash 256-color-ish) */
+.t-green { color: #4ade80; }
+.t-purple { color: #8b5cf6; }
+.t-blue { color: #38bdf8; }
+.t-cyan { color: #22d3ee; }
+.t-yellow { color: #f5b942; }
+.t-red { color: #f87171; }
+.t-pink { color: #ec4899; }
+.t-gray { color: #8b8b8b; }
+.t-bold { font-weight: bold; }
+.term-pre { white-space: pre; }
+
+/* neofetch (real-terminal style) */
+.term-art { color: #22d3ee; font-weight: bold; }
+.term-art-label { color: #ec4899; font-weight: bold; }
+.nf-user { color: #ec4899; font-weight: bold; }
+.nf-sep { color: #555; }
+.nf-label { color: #e0d8ff; font-weight: bold; }
+.nf-value { color: #d8d8d8; }
+
+/* cmatrix */
+.term-rain {
+    position: relative;
+    height: 200px;
+    margin: 4px 0;
+    overflow: hidden;
+}
+.rain-col {
+    position: absolute;
+    top: 0;
+    color: #00ff41;
+    text-shadow: 0 0 6px #00ff41;
+    font-weight: bold;
+    white-space: pre;
+    animation: raindrop linear infinite;
+    will-change: transform;
+}
+@keyframes raindrop {
+    from { transform: translateY(-110%); }
+    to { transform: translateY(240px); }
+}
+.rain-hint {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    color: #1d6b2f;
+    font-size: 11px;
+}
+
+/* htop bars */
+.htop-bar {
+    display: inline-block;
+    height: 9px;
+    vertical-align: middle;
+}
+.htop-bar-used { background-color: #4ade80; }
+.htop-bar-soft { background-color: #22d3ee; }
+.htop-bar-free { background-color: #1e1030; }
+.htop-bar-swap { background-color: #f5b942; }
+
 .term-prompt {
     display: inline-block;
     color: #ec4899;
@@ -68,10 +128,6 @@
     align-items: center;
     gap: 6px;
 }
-
-/* neofetch art */
-.term-art { color: #8b5cf6; font-weight: bold; }
-.term-art-label { color: #ec4899; font-weight: bold; }
 
 .window-body::-webkit-scrollbar {
     width: 16px;
