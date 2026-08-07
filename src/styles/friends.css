@@ -1,0 +1,77 @@
+/* ===== Friends window ===== */
+#window-friends {
+    width: 460px;
+    height: 420px;
+}
+
+.friends-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    height: 100%;
+    overflow-y: auto;
+    padding: 0 !important;
+    background-color: var(--win-gray) !important;
+    border: 0 !important;
+}
+
+.friends-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    background-color: var(--win-gray);
+    border-bottom: 1px solid var(--border-light);
+    box-shadow: inset 0 -1px 0 var(--border-dark);
+}
+
+.friends-header span {
+    font-family: var(--system-font);
+    font-size: 11px;
+    color: var(--text-main);
+}
+
+.friend-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 6px;
+    padding: 7px 10px;
+    background-color: var(--win-white);
+    border-top: 1px solid var(--border-light);
+    border-left: 1px solid var(--border-light);
+    border-right: 1px solid var(--border-darkest);
+    border-bottom: 1px solid var(--border-darkest);
+    box-shadow: inset -1px -1px 0 var(--border-dark);
+    cursor: pointer;
+    font-family: var(--system-font);
+    font-size: 12px;
+    color: var(--text-main);
+}
+
+.friend-row:hover {
+    background-color: var(--win-blue);
+    color: var(--text-inverted);
+}
+
+.friend-row img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.friend-row .friend-alias {
+    flex: 1;
+    font-weight: bold;
+}
+
+.friend-row .friend-id {
+    color: #777;
+    font-size: 10px;
+    font-family: 'Courier New', monospace;
+}
+
+.friend-row:hover .friend-id {
+    color: #ccc;
+}

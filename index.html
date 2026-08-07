@@ -1,114 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>rezi.lol</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: #0b0b0f;
-      color: #e0e0e0;
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    a { color: inherit; text-decoration: none; }
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.5rem 2rem;
-      border-bottom: 1px solid #1a1a24;
-    }
-    .logo {
-      font-size: 1.4rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: #fff;
-    }
-    .logo span { color: #a855f7; }
-    nav { display: flex; gap: 2rem; }
-    nav a {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: #888;
-      transition: color 0.2s;
-    }
-    nav a:hover { color: #fff; }
-    main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 2rem; text-align: center; }
-    .hero h1 {
-      font-size: 4rem;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -1.5px;
-      line-height: 1.1;
-    }
-    .hero h1 span { color: #a855f7; }
-    .hero p {
-      margin-top: 1rem;
-      font-size: 1.15rem;
-      color: #666;
-      max-width: 500px;
-    }
-    .buttons { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.85rem 2rem;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      transition: all 0.2s;
-    }
-    .btn-primary {
-      background: #a855f7;
-      color: #fff;
-    }
-    .btn-primary:hover { background: #9333ea; transform: translateY(-2px); }
-    .btn-secondary {
-      background: #1a1a24;
-      color: #e0e0e0;
-    }
-    .btn-secondary:hover { background: #252530; transform: translateY(-2px); }
-    footer {
-      padding: 1.5rem 2rem;
-      border-top: 1px solid #1a1a24;
-      text-align: center;
-      font-size: 0.8rem;
-      color: #444;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-control" content="public">
+    <meta name="theme-color" content="#008080">
+    <title>「rezi.lol」</title>
+    <link rel="icon" href="icons/logo.svg">
+
+    <link rel="stylesheet" href="src/styles/reset.css">
+    <link rel="stylesheet" href="src/styles/system.css">
+    <link rel="stylesheet" href="src/styles/taskbar.css">
+    <link rel="stylesheet" href="src/styles/desktop.css">
+    <link rel="stylesheet" href="src/styles/window.css">
+    <link rel="stylesheet" href="src/styles/startmenu.css">
+    <link rel="stylesheet" href="src/styles/boot.css">
+    <link rel="stylesheet" href="src/styles/kernel.css">
+    <link rel="stylesheet" href="src/styles/login.css">
+    <link rel="stylesheet" href="src/styles/clippy.css">
+    <link rel="stylesheet" href="src/styles/crt.css">
+
+    <link rel="stylesheet" href="src/styles/about.css">
+    <link rel="stylesheet" href="src/styles/links.css">
+    <link rel="stylesheet" href="src/styles/scripts.css">
+    <link rel="stylesheet" href="src/styles/repos.css">
+    <link rel="stylesheet" href="src/styles/friends.css">
+    <link rel="stylesheet" href="src/styles/terminal.css">
+    <link rel="stylesheet" href="src/styles/calculator.css">
 </head>
+
 <body>
-  <header>
-    <div class="logo">rezi<span>.lol</span></div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="scripts.html">Scripts</a>
-    </nav>
-  </header>
-  <main>
-    <section class="hero">
-      <h1 id="site-title">rezi<span>.lol</span></h1>
-      <p id="site-tagline">Premium scripts & commissions for Roblox. Quality you can trust.</p>
-      <div class="buttons">
-        <a href="scripts.html" class="btn btn-primary">View Scripts</a>
-        <a href="scripts.html" class="btn btn-secondary">Commissions</a>
-      </div>
-    </section>
-  </main>
-  <footer id="site-footer">All rights are rezi'd</footer>
-  <script>
-    fetch('data.json').then(r => r.json()).then(d => {
-      document.getElementById('site-title').innerHTML = d.site.title.replace('.lol', '<span>.lol</span>');
-      document.getElementById('site-tagline').textContent = d.site.tagline;
-      document.getElementById('site-footer').textContent = d.site.footer;
-    });
-  </script>
+
+    <div id="boot-screen">
+        <div class="bios-header">
+            <div class="bios-text">
+                <div>waifu Modular BIOS v4.51PG, An Energy Star Ally</div>
+                <div>Copyright (C) 1984-98, Waifu Inc.</div>
+            </div>
+            <img src="icons/logo.svg" class="bios-logo-img" alt="rezi">
+        </div>
+
+        <div class="bios-info">
+            Main Processor : 486DX2-66<br>
+            Video Adapter : ASCII Graphics Adapter<br>
+            Memory Test: <span id="bios-mem">0</span>
+        </div>
+
+        <div class="bios-drives">
+            Detecting Primary Master ... WAIFU-HD 20GB<br>
+            Detecting Primary Slave ... None<br>
+            Detecting Secondary Master ... CD-ROM Drive<br>
+            Detecting Secondary Slave ... None
+        </div>
+
+        <div class="bios-footer" id="bios-footer" style="display:none">
+            Starting waifuOS 98 SE...
+        </div>
+
+        <div class="bios-cursor"></div>
+    </div>
+
+    <div class="desktop-area">
+        <div class="desktop-icon" tabindex="0" data-window="window-about">
+            <img src="icons/sobreMim.svg" alt="About Me">
+            <span>About Me</span>
+        </div>
+
+        <div class="desktop-icon" tabindex="0" data-window="window-links">
+            <img src="icons/internet.png" alt="Links">
+            <span>Links</span>
+        </div>
+
+        <div class="desktop-icon" tabindex="0" data-window="window-scripts">
+            <img src="icons/notepad.ico" alt="Scripts">
+            <span>Scripts</span>
+        </div>
+
+        <div class="desktop-icon" tabindex="0" data-window="window-repos">
+            <img src="icons/github.svg" alt="Repos">
+            <span>Repos</span>
+        </div>
+
+        <div class="desktop-icon" tabindex="0" data-window="window-friends">
+            <img src="icons/friends.svg" alt="Friends">
+            <span>Friends</span>
+        </div>
+
+        <div class="desktop-icon" tabindex="0" data-window="window-terminal">
+            <img src="icons/zenzinDOS.svg" alt="Terminal">
+            <span>Terminal</span>
+        </div>
+
+        <div class="desktop-icon" tabindex="0" data-window="window-calculator">
+            <img src="icons/calculator.ico" alt="Calculator">
+            <span>Calculator</span>
+        </div>
+    </div>
+
+    <div class="start-menu" id="start-menu">
+        <div class="sidebar">
+            <span class="sidebar-text"><strong>waifuOS</strong> 98 SE</span>
+        </div>
+
+        <div class="menu-items">
+            <div class="menu-item has-submenu">
+                <img src="icons/logo.svg" class="menu-icon">
+                <span style="flex: 1;">Programs</span>
+                <span class="menu-arrow">▶</span>
+
+                <div class="submenu">
+                    <div class="menu-item" onclick="openWindow('window-terminal'); toggleStartMenu()">
+                        <img src="icons/zenzinDOS.svg" class="menu-icon">
+                        <span>waifuOS Terminal</span>
+                    </div>
+                    <div class="menu-item" onclick="openWindow('window-scripts'); toggleStartMenu()">
+                        <img src="icons/notepad.ico" class="menu-icon">
+                        <span>Scripts</span>
+                    </div>
+                    <div class="menu-item" onclick="openWindow('window-repos'); toggleStartMenu()">
+                        <img src="icons/github.svg" class="menu-icon">
+                        <span>Repos</span>
+                    </div>
+                    <div class="menu-item" onclick="openWindow('window-friends'); toggleStartMenu()">
+                        <img src="icons/friends.svg" class="menu-icon">
+                        <span>Friends</span>
+                    </div>
+                    <div class="menu-item" onclick="openWindow('window-links'); toggleStartMenu()">
+                        <img src="icons/internet.png" class="menu-icon">
+                        <span>Links</span>
+                    </div>
+                    <div class="menu-item" onclick="openWindow('window-calculator'); toggleStartMenu()">
+                        <img src="icons/calculator.ico" class="menu-icon">
+                        <span>Calculator</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-separator"></div>
+
+            <div class="menu-item" onclick="openWindow('window-about'); toggleStartMenu()">
+                <img src="icons/sobreMim.svg" class="menu-icon">
+                <span>About Me</span>
+            </div>
+
+            <div class="menu-item" id="menu-github">
+                <img src="icons/github.svg" class="menu-icon">
+                <span>My GitHub</span>
+            </div>
+
+            <div class="menu-separator"></div>
+
+            <div class="menu-item" onclick="openWindow('window-terminal'); toggleStartMenu()">
+                <img src="icons/zenzinDOS.svg" class="menu-icon">
+                <span>System Info (neofetch)</span>
+            </div>
+
+            <div class="menu-separator"></div>
+
+            <div class="menu-item" onclick="location.reload()">
+                <img src="icons/restart.ico" class="menu-icon">
+                <span>Restart System...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <button class="start-button">
+            <img src="icons/logo.svg" alt="" class="start-icon">
+            <span class="start-text">Start</span>
+        </button>
+        <div class="taskbar-divider"></div>
+        <div class="tasks-area"></div>
+        <div class="tray-area">
+            <div class="clock">00:00</div>
+        </div>
+    </div>
+
+    <div class="crt-overlay active effect-vga"></div>
+
+    <script type="module" src="src/App.js"></script>
+    <script>
+        /* github menu item -> config profile socials */
+        document.addEventListener('DOMContentLoaded', function () {
+            var btn = document.getElementById('menu-github');
+            if (!btn) return;
+            btn.addEventListener('click', function () {
+                fetch('config.json', { cache: 'no-store' })
+                    .then(function (r) { return r.json(); })
+                    .then(function (cfg) {
+                        var socials = (cfg.profile && cfg.profile.socials) || [];
+                        var url = 'https://github.com/';
+                        for (var i = 0; i < socials.length; i++) {
+                            if (socials[i].type === 'github') { url = socials[i].url || url; break; }
+                        }
+                        window.open(url, '_blank');
+                        var sm = document.getElementById('start-menu');
+                        if (sm) sm.classList.remove('active');
+                        var sb = document.querySelector('.start-button');
+                        if (sb) sb.classList.remove('active');
+                    });
+            });
+        });
+    </script>
 </body>
+
 </html>

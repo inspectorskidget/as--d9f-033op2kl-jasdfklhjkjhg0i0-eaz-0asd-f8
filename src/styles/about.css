@@ -1,0 +1,158 @@
+#window-about {
+    flex-direction: column !important;
+    width: 600px !important;
+    height: 400px !important;
+    min-width: 600px;
+    min-height: 400px;
+}
+
+#window-about .window-body {
+    flex: 1 !important;
+    height: auto !important;
+    overflow: hidden !important;
+    padding: 0;
+    margin: 0;
+    background-color: var(--win-gray);
+    display: flex;
+    flex-direction: column;
+    border: 0px;
+}
+
+.md-content {
+    background-color: #fff;
+    color: var(--text-main);
+    padding: 25px;
+    
+    flex: 1;
+    overflow-y: auto;
+    
+    font-family: 'Verdana', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    box-sizing: border-box;
+    
+    border-top: 2px solid var(--border-dark);
+    border-left: 2px solid var(--border-dark);
+    border-right: 2px solid var(--win-white);
+    border-bottom: 2px solid var(--win-white);
+    margin: 4px;
+}
+
+.md-content h1 { 
+    font-size: 26px; 
+    border-bottom: 2px solid #000; 
+    margin-bottom: 20px; 
+    padding-bottom: 5px; 
+}
+
+.md-content h2 { 
+    font-size: 20px; 
+    border-bottom: 1px solid #ccc; 
+    margin-top: 25px; 
+    margin-bottom: 10px; 
+}
+
+.md-content h3 { 
+    font-size: 16px; 
+    font-weight: bold; 
+    margin-top: 20px; 
+    color: var(--win-blue); 
+}
+
+.md-content p { margin-bottom: 10px; text-align: justify; }
+
+.md-content ul, .md-content ol { margin-left: 25px; margin-bottom: 15px; }
+.md-content ul { list-style-type: square; }
+.md-content ol { list-style-type: decimal; }
+.md-content li { margin-bottom: 5px; }
+
+.md-content blockquote {
+    border-left: 4px solid var(--win-blue);
+    margin: 15px 0;
+    padding: 5px 15px;
+    background: #f0f0f0;
+    font-style: italic;
+}
+
+.md-content pre {
+    background: #e8e8e8;
+    border: 1px solid #999;
+    padding: 10px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 15px;
+    box-shadow: inset 1px 1px 2px #ccc;
+}
+
+.md-content a { color: blue; text-decoration: underline; cursor: pointer; }
+.md-content a:hover { color: red; }
+.md-content img { max-width: 100%; border: 1px solid #000; margin: 10px 0; }
+.md-content hr { border: 0; border-top: 1px solid #808080; border-bottom: 1px solid #fff; margin: 20px 0; }
+
+.md-content::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+    background: var(--win-gray);
+}
+
+.md-content::-webkit-scrollbar-corner {
+    background: var(--win-gray);
+}
+
+.md-content::-webkit-scrollbar-track {
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg width='2' height='2' viewBox='0 0 2 2' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1' fill='%23c0c0c0'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23c0c0c0'/%3E%3C/svg%3E");
+}
+
+.md-content::-webkit-scrollbar-thumb {
+    background-color: var(--win-gray);
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    box-shadow: inset -1px -1px 0 #808080, inset 1px 1px 0 #dfdfdf;
+}
+
+.md-content::-webkit-scrollbar-thumb:active {
+    background-color: var(--win-gray);
+}
+
+.md-content::-webkit-scrollbar-button {
+    display: block;
+    height: 16px;
+    width: 16px;
+    background-color: var(--win-gray);
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    box-shadow: inset -1px -1px 0 #808080, inset 1px 1px 0 #dfdfdf;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.md-content::-webkit-scrollbar-button:active {
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    box-shadow: none;
+    background-position: calc(50% + 1px) calc(50% + 1px);
+}
+
+.md-content::-webkit-scrollbar-button:vertical:decrement {
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 5 L5 8 L11 8 Z' fill='black'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.md-content::-webkit-scrollbar-button:vertical:increment {
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 11 L5 8 L11 8 Z' fill='black'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.md-content::-webkit-scrollbar-button:vertical:decrement:end,
+.md-content::-webkit-scrollbar-button:vertical:increment:start {
+    display: none;
+}

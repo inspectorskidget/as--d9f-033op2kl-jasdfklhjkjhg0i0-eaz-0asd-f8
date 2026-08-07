@@ -1,0 +1,58 @@
+/* ===== Repos window ===== */
+#window-repos {
+    width: 520px;
+    height: 420px;
+}
+
+.repos-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.repo-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    background-color: var(--win-gray);
+    border-top: 1px solid var(--border-light);
+    border-left: 1px solid var(--border-light);
+    border-right: 1px solid var(--border-darkest);
+    border-bottom: 1px solid var(--border-darkest);
+    box-shadow: inset -1px -1px 0 var(--border-dark), inset 1px 1px 0 var(--win-gray-light);
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-main);
+    font-family: var(--system-font);
+    font-size: 12px;
+}
+
+.repo-item:hover {
+    background-color: var(--win-blue);
+    color: var(--text-inverted);
+}
+
+.repo-item img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.repo-item .repo-name {
+    flex: 1;
+    font-weight: bold;
+}
+
+.repo-item .repo-desc {
+    flex: 2;
+    color: #666;
+    font-size: 10px;
+}
+
+.repo-item:hover .repo-desc {
+    color: #ccc;
+}
