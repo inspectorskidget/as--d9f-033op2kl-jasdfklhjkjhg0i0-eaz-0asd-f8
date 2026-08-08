@@ -2,12 +2,63 @@
 
 export function runBootSequence() {
     return new Promise(function (resolve) {
+        const kernelScreen = createKernelScreen();
+        document.body.appendChild(kernelScreen);
         runBios(function () {
-            runKernelLog(function () {
-                resolve();
+            kernelScreen.classList.add('active');
+            runKernelLog(kernelScreen, function () {
+                playStartupSound();
+                kernelScreen.classList.add('boot-fade-out');
+                setTimeout(function () {
+                    kernelScreen.remove();
+                    resolve();
+                }, 600);
             });
         });
     });
+}
+
+function createKernelScreen() {
+    const screen = document.createElement('div');
+    screen.id = 'kernel-screen';
+    screen.innerHTML = '<div id="kernel-log"></div><div id="kernel-cursor"></div>';
+    return screen;
+}
+
+function playStartupSound() {
+    const audio = new Audio('sounds/boot.mp3');
+    audio.volume = 0.5;
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(function () {
+            showClickToContinue(audio);
+        });
+    }
+}
+
+function showClickToContinue(audioElement) {
+    const screen = document.getElementById('kernel-screen');
+    if (!screen) return;
+    const msg = document.createElement('div');
+    msg.style.position = 'absolute';
+    msg.style.top = '50%';
+    msg.style.left = '50%';
+    msg.style.transform = 'translate(-50%, -50%)';
+    msg.style.color = '#666';
+    msg.style.fontFamily = "'Courier New', monospace";
+    msg.style.fontSize = '14px';
+    msg.innerText = 'PRESS ANY KEY...';
+    screen.appendChild(msg);
+
+    const start = function () {
+        msg.remove();
+        audioElement.play();
+        window.removeEventListener('keydown', start);
+        window.removeEventListener('click', start);
+    };
+
+    window.addEventListener('keydown', start);
+    window.addEventListener('click', start);
 }
 
 function runBios(done) {
@@ -29,28 +80,13 @@ function runBios(done) {
     const beepPromise = beep.play();
     if (beepPromise !== undefined) beepPromise.catch(function () {});
 
-    const audio = new Audio('sounds/boot.mp3');
-    audio.volume = 0.5;
-
-    const playPromise = audio.play();
-
-    if (playPromise !== undefined) {
-        playPromise.catch(function () {
-            showClickToStart(audio);
-        }).then(function () {
-            if (!audio.paused) startWarmUpSequence();
-        });
-    }
-
-    function startWarmUpSequence() {
+    setTimeout(function () {
+        header.style.visibility = 'visible';
         setTimeout(function () {
-            header.style.visibility = 'visible';
-            setTimeout(function () {
-                info.style.visibility = 'visible';
-                startMemoryCheck();
-            }, 550);
-        }, warmUpTime);
-    }
+            info.style.visibility = 'visible';
+            startMemoryCheck();
+        }, 550);
+    }, warmUpTime);
 
     function startMemoryCheck() {
         const memInterval = setInterval(function () {
@@ -76,32 +112,6 @@ function runBios(done) {
         }, 10);
     }
 
-    function showClickToStart(audioElement) {
-        const msg = document.createElement('div');
-        msg.style.position = 'absolute';
-        msg.style.top = '50%';
-        msg.style.left = '50%';
-        msg.style.transform = 'translate(-50%, -50%)';
-        msg.style.color = '#666';
-        msg.style.fontFamily = "'Courier New', monospace";
-        msg.style.fontSize = '14px';
-        msg.style.visibility = 'visible';
-        msg.style.animation = 'blink 1s infinite';
-        msg.innerText = 'PRESS ANY KEY...';
-        screen.appendChild(msg);
-
-        const start = function () {
-            msg.remove();
-            audioElement.play();
-            startWarmUpSequence();
-            window.removeEventListener('keydown', start);
-            window.removeEventListener('click', start);
-        };
-
-        window.addEventListener('keydown', start);
-        window.addEventListener('click', start);
-    }
-
     function finishBoot() {
         screen.classList.add('boot-fade-out');
         setTimeout(function () {
@@ -111,14 +121,8 @@ function runBios(done) {
     }
 }
 
-function runKernelLog(done) {
-    const screen = document.createElement('div');
-    screen.id = 'kernel-screen';
-    screen.className = 'active';
-    screen.innerHTML = '<div id="kernel-log"></div><div id="kernel-cursor"></div>';
-    document.body.appendChild(screen);
-
-    const log = document.getElementById('kernel-log');
+function runKernelLog(screen, done) {
+    const log = screen.querySelector('#kernel-log');
     const config = getConfig();
     const pcInfo = config.pc_info || {};
     const cpu = pcInfo.cpu || 'Intel i5-12600KF';
@@ -236,13 +240,7 @@ function runKernelLog(done) {
                     log.appendChild(welcomeLine4);
                     screen.scrollTop = screen.scrollHeight;
 
-                    setTimeout(function () {
-                        screen.classList.add('boot-fade-out');
-                        setTimeout(function () {
-                            screen.remove();
-                            done();
-                        }, 600);
-                    }, 900);
+                    setTimeout(done, 900);
                 }, 350);
             });
         });

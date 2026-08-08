@@ -18,9 +18,11 @@ async function initSystem() {
 
     startClock();
 
+    const loginPromise = initLogin();
+
     await runBootSequence();
 
-    await initLogin();
+    await loginPromise;
 
     initClippy();
 
