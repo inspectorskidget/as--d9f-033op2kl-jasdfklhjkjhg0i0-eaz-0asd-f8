@@ -42,7 +42,18 @@
     }
   ],
   "repos": [],
-  "friends": [],
+  "friends": [
+    { "alias": "pure" },
+    { "alias": "bloom" },
+    { "alias": "doctor" },
+    { "alias": "ego" },
+    { "alias": "geld" },
+    { "alias": "woke" },
+    { "alias": "terrorzone" },
+    { "alias": "bleach" },
+    { "alias": "lost" },
+    { "alias": "infosec/purge" }
+  ],
   "pc_info": {
     "os": "Windows 10 Pro",
     "os_build": "10.0.19045",

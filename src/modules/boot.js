@@ -4,15 +4,11 @@ export function runBootSequence() {
     return new Promise(function (resolve) {
         const kernelScreen = createKernelScreen();
         document.body.appendChild(kernelScreen);
+        kernelScreen.classList.add('active');
         runBios(function () {
-            kernelScreen.classList.add('active');
             runKernelLog(kernelScreen, function () {
-                playStartupSound();
-                kernelScreen.classList.add('boot-fade-out');
-                setTimeout(function () {
-                    kernelScreen.remove();
-                    resolve();
-                }, 600);
+                kernelScreen.remove();
+                runStartupAnimation(resolve);
             });
         });
     });
@@ -25,19 +21,54 @@ function createKernelScreen() {
     return screen;
 }
 
-function playStartupSound() {
+function runStartupAnimation(done) {
+    const screen = document.createElement('div');
+    screen.id = 'startup-screen';
+    screen.innerHTML =
+        '<div class="startup-flag"><img src="icons/logo.svg" alt="waifuOS"></div>' +
+        '<div class="startup-title">waifuOS 98 SE</div>' +
+        '<div class="startup-bar"><div class="startup-bar-fill"></div><div class="startup-bar-stripes"></div></div>';
+    document.body.appendChild(screen);
+
     const audio = new Audio('sounds/boot.mp3');
     audio.volume = 0.5;
+
     const playPromise = audio.play();
     if (playPromise !== undefined) {
-        playPromise.catch(function () {
-            showClickToContinue(audio);
+        playPromise.then(begin).catch(function () {
+            showClickToContinue(audio, begin);
         });
+    } else {
+        begin();
+    }
+
+    function begin() {
+        const fill = screen.querySelector('.startup-bar-fill');
+        let progress = 0;
+        const barInterval = setInterval(function () {
+            progress += 2 + Math.random() * 3;
+            if (progress >= 100) {
+                progress = 100;
+                fill.style.width = '100%';
+                clearInterval(barInterval);
+                setTimeout(finish, 400);
+            } else {
+                fill.style.width = progress + '%';
+            }
+        }, 60);
+    }
+
+    function finish() {
+        screen.classList.add('boot-fade-out');
+        setTimeout(function () {
+            screen.remove();
+            done();
+        }, 500);
     }
 }
 
-function showClickToContinue(audioElement) {
-    const screen = document.getElementById('kernel-screen');
+function showClickToContinue(audioElement, onStart) {
+    const screen = document.getElementById('startup-screen');
     if (!screen) return;
     const msg = document.createElement('div');
     msg.style.position = 'absolute';
@@ -53,6 +84,7 @@ function showClickToContinue(audioElement) {
     const start = function () {
         msg.remove();
         audioElement.play();
+        onStart();
         window.removeEventListener('keydown', start);
         window.removeEventListener('click', start);
     };
