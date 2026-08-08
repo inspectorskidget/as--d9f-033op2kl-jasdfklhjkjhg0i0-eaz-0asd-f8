@@ -1,5 +1,5 @@
-import { createWindow } from '../modules/windowFactory.js';
-import { getConfig, esc } from '../config.js';
+﻿import { createWindow } from '../modules/windowFactory.js';
+import { getConfig, escapeText } from '../config.js';
 
 const ICONS = {
     github: 'icons/github.svg',
@@ -13,23 +13,23 @@ export function renderLinks() {
     const winId = 'window-links';
     if (document.getElementById(winId)) return;
 
-    const cfg = getConfig();
-    const socials = (cfg.profile && cfg.profile.socials) || [];
-    const discordName = (cfg.discord && cfg.discord.username) || 'rezi.lol';
+    const config = getConfig();
+    const socials = (config.profile && config.profile.socials) || [];
+    const discordName = (config.discord && config.discord.username) || 'rezi.lol';
 
-    const rows = socials.map(function (s) {
-        const icon = ICONS[s.type] || 'icons/logo.svg';
-        if (s.type === 'discord') {
-            return '<div class="link-item" data-copy="' + esc(discordName) + '">' +
+    const rows = socials.map(function (social) {
+        const icon = ICONS[social.type] || 'icons/logo.svg';
+        if (social.type === 'discord') {
+            return '<div class="link-item" data-copy="' + escapeText(discordName) + '">' +
                 '<img src="' + icon + '" alt="">' +
-                '<span class="link-label">' + esc(s.label || 'Discord') + '</span>' +
-                '<span class="link-url">click to copy @' + esc(discordName) + '</span>' +
+                '<span class="link-label">' + escapeText(social.label || 'Discord') + '</span>' +
+                '<span class="link-url">click to copy @' + escapeText(discordName) + '</span>' +
                 '</div>';
         }
-        return '<a class="link-item" href="' + esc(s.url) + '" target="_blank" rel="noopener">' +
+        return '<a class="link-item" href="' + escapeText(social.url) + '" target="_blank" rel="noopener">' +
             '<img src="' + icon + '" alt="">' +
-            '<span class="link-label">' + esc(s.label || s.type) + '</span>' +
-            '<span class="link-url">' + esc(s.url) + '</span>' +
+            '<span class="link-label">' + escapeText(social.label || social.type) + '</span>' +
+            '<span class="link-url">' + escapeText(social.url) + '</span>' +
             '</a>';
     }).join('') || '<div style="padding: 12px; font-family: var(--system-font); font-size: 12px;">no links configured</div>';
 
@@ -40,8 +40,8 @@ export function renderLinks() {
         isCentered: true
     });
 
-    const win = document.getElementById(winId);
-    win.querySelectorAll('.link-item[data-copy]').forEach(function (row) {
+    const windowEl = document.getElementById(winId);
+    windowEl.querySelectorAll('.link-item[data-copy]').forEach(function (row) {
         row.addEventListener('click', function () {
             const text = row.getAttribute('data-copy') || 'rezi.lol';
             const label = row.querySelector('.link-label');
@@ -50,8 +50,8 @@ export function renderLinks() {
                 if (label) label.textContent = 'Copied!';
                 if (url) url.textContent = '@' + text + ' is in your clipboard';
                 setTimeout(function () {
-                    const s = socials.find ? socials.find(function (x) { return x.type === 'discord'; }) : null;
-                    if (label) label.textContent = (s && s.label) || 'Discord';
+                    const social = socials.find ? socials.find(function (social) { return social.type === 'discord'; }) : null;
+                    if (label) label.textContent = (social && social.label) || 'Discord';
                     if (url) url.textContent = 'click to copy @' + text;
                 }, 1500);
             });
@@ -61,14 +61,14 @@ export function renderLinks() {
 
 function copyText(text, done) {
     function fallback() {
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand('copy'); } catch (e) {}
-        document.body.removeChild(ta);
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        try { document.execCommand('copy'); } catch (error) {}
+        document.body.removeChild(textArea);
         done();
     }
     if (navigator.clipboard && navigator.clipboard.writeText) {

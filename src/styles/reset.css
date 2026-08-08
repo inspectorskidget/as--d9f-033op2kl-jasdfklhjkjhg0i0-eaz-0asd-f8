@@ -3,16 +3,12 @@
     margin: 0;
     padding: 0;
 }
-
 body {
-    /* Background */
     background-color: var(--win-desktop);
     font-family: var(--system-font);
     overflow: hidden;
     width: 100vw;
     height: 100vh;
-
-    /* Imagens */
     image-rendering: pixelated;
     -webkit-font-smoothing: none;
 }

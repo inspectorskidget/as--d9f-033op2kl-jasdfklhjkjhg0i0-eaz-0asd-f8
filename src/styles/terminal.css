@@ -1,9 +1,8 @@
-/* ===== waifuOS Terminal (bash style) ===== */
+
 #window-terminal {
     width: 720px;
     height: 480px;
 }
-
 #window-terminal .window-body {
     background-color: #0d0218;
     color: #d8d8d8;
@@ -25,27 +24,21 @@
     white-space: pre-wrap;
     word-break: break-word;
 }
-
 #terminal-output {
     flex: 1;
 }
-
 .term-line {
     white-space: pre-wrap;
     word-break: break-word;
 }
-
 .term-user { color: #4ade80; font-weight: bold; }
 .term-host { color: #8b5cf6; font-weight: bold; }
 .term-path { color: #38bdf8; font-weight: bold; }
 .term-input { color: #ffffff; font-weight: bold; }
-
 .term-ok { color: #5fd35f; font-weight: bold; }
 .term-warn { color: #f5b942; font-weight: bold; }
 .term-fail { color: #f87171; font-weight: bold; }
 .term-dim { color: #777; }
-
-/* terminal palette (bash 256-color-ish) */
 .t-green { color: #4ade80; }
 .t-purple { color: #8b5cf6; }
 .t-blue { color: #38bdf8; }
@@ -56,16 +49,12 @@
 .t-gray { color: #8b8b8b; }
 .t-bold { font-weight: bold; }
 .term-pre { white-space: pre; }
-
-/* neofetch (real-terminal style) */
 .term-art { color: #22d3ee; font-weight: bold; }
 .term-art-label { color: #ec4899; font-weight: bold; }
 .nf-user { color: #ec4899; font-weight: bold; }
 .nf-sep { color: #555; }
 .nf-label { color: #e0d8ff; font-weight: bold; }
 .nf-value { color: #d8d8d8; }
-
-/* cmatrix */
 .term-rain {
     position: relative;
     height: 200px;
@@ -93,8 +82,6 @@
     color: #1d6b2f;
     font-size: 11px;
 }
-
-/* htop bars */
 .htop-bar {
     display: inline-block;
     height: 9px;
@@ -104,13 +91,11 @@
 .htop-bar-soft { background-color: #22d3ee; }
 .htop-bar-free { background-color: #1e1030; }
 .htop-bar-swap { background-color: #f5b942; }
-
 .term-prompt {
     display: inline-block;
     color: #ec4899;
     font-weight: bold;
 }
-
 #cmd-input {
     background: transparent;
     border: none;
@@ -122,28 +107,23 @@
     caret-color: #ec4899;
     font-weight: bold;
 }
-
 .input-line {
     display: flex;
     align-items: center;
     gap: 6px;
 }
-
 .window-body::-webkit-scrollbar {
     width: 16px;
     height: 16px;
     background: var(--win-gray);
 }
-
 .window-body::-webkit-scrollbar-corner {
     background: var(--win-gray);
 }
-
 .window-body::-webkit-scrollbar-track {
     background-color: #ffffff;
     background-image: url("data:image/svg+xml,%3Csvg width='2' height='2' viewBox='0 0 2 2' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1' fill='%23c0c0c0'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23c0c0c0'/%3E%3C/svg%3E");
 }
-
 .window-body::-webkit-scrollbar-thumb {
     background-color: var(--win-gray);
     border-top: 1px solid #ffffff;
@@ -152,7 +132,6 @@
     border-bottom: 1px solid #000000;
     box-shadow: inset -1px -1px 0 #808080, inset 1px 1px 0 #dfdfdf;
 }
-
 .window-body::-webkit-scrollbar-button {
     display: block;
     height: 16px;
@@ -166,15 +145,12 @@
     background-position: center;
     background-repeat: no-repeat;
 }
-
 .window-body::-webkit-scrollbar-button:vertical:decrement {
     background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 5 L5 8 L11 8 Z' fill='black'/%3E%3C/svg%3E");
 }
-
 .window-body::-webkit-scrollbar-button:vertical:increment {
     background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 11 L5 8 L11 8 Z' fill='black'/%3E%3C/svg%3E");
 }
-
 .window-body::-webkit-scrollbar-button:vertical:decrement:end,
 .window-body::-webkit-scrollbar-button:vertical:increment:start {
     display: none;

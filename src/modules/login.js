@@ -1,9 +1,9 @@
-import { getConfig, esc } from '../config.js';
+﻿import { getConfig, escapeText } from '../config.js';
 
 export function initLogin() {
     return new Promise(function (resolve) {
-        const cfg = getConfig();
-        const profile = cfg.profile || {};
+        const config = getConfig();
+        const profile = config.profile || {};
         const userName = profile.displayName || 'rezi';
 
         const loginScreen = document.createElement('div');
@@ -30,7 +30,7 @@ export function initLogin() {
                         <div class="login-inputs">
                             <div class="login-row">
                                 <label>Username:</label>
-                                <input type="text" value="${esc(userName)}" id="login-user" readonly>
+                                <input type="text" value="${escapeText(userName)}" id="login-user" readonly>
                             </div>
                             <div class="login-row">
                                 <label>Password:</label>
@@ -50,7 +50,7 @@ export function initLogin() {
         document.body.appendChild(loginScreen);
 
         const inputPass = document.getElementById('login-pass');
-        const btnOk = document.getElementById('btn-login-ok');
+        const okButton = document.getElementById('btn-login-ok');
 
         setTimeout(function () { inputPass.focus(); }, 100);
 
@@ -77,7 +77,7 @@ export function initLogin() {
         const doLogin = function () {
             if (inputPass.disabled) return;
             inputPass.disabled = true;
-            btnOk.disabled = true;
+            okButton.disabled = true;
 
             const audio = new Audio('sounds/login.mp3');
 
@@ -98,10 +98,10 @@ export function initLogin() {
             };
         };
 
-        btnOk.addEventListener('click', doLogin);
+        okButton.addEventListener('click', doLogin);
 
-        inputPass.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter') doLogin();
+        inputPass.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') doLogin();
         });
 
         document.getElementById('btn-login-cancel').onclick = function () {

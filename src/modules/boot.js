@@ -1,4 +1,4 @@
-import { getConfig, esc } from '../config.js';
+﻿import { getConfig, escapeText } from '../config.js';
 
 export function runBootSequence() {
     return new Promise(function (resolve) {
@@ -10,7 +10,6 @@ export function runBootSequence() {
     });
 }
 
-/* ================= BIOS POST ================= */
 function runBios(done) {
     const screen = document.getElementById('boot-screen');
     const memDisplay = document.getElementById('bios-mem');
@@ -24,6 +23,11 @@ function runBios(done) {
     const totalMem = 16384;
     let currentMem = 0;
     const warmUpTime = 800;
+
+    const beep = new Audio('sounds/beep.mp3');
+    beep.volume = 0.5;
+    const beepPromise = beep.play();
+    if (beepPromise !== undefined) beepPromise.catch(function () {});
 
     const audio = new Audio('sounds/boot.mp3');
     audio.volume = 0.5;
@@ -107,7 +111,6 @@ function runBios(done) {
     }
 }
 
-/* ================= GRUB + kernel log + login ================= */
 function runKernelLog(done) {
     const screen = document.createElement('div');
     screen.id = 'kernel-screen';
@@ -116,38 +119,38 @@ function runKernelLog(done) {
     document.body.appendChild(screen);
 
     const log = document.getElementById('kernel-log');
-    const cfg = getConfig();
-    const pc = cfg.pc_info || {};
-    const cpu = pc.cpu || 'Intel i5-12600KF';
-    const cores = pc.cpu_cores || '10 cores / 16 threads';
-    const host = pc.host || 'ASRock Z690M Phantom Gaming 4';
-    const gpu = pc.gpu || 'AMD Radeon RX 6700 XT';
-    const bios = pc.bios || 'AMI 3.80';
-    const build = pc.build || 'waifuOS 98 SE (custom rezi build)';
+    const config = getConfig();
+    const pcInfo = config.pc_info || {};
+    const cpu = pcInfo.cpu || 'Intel i5-12600KF';
+    const cores = pcInfo.cpu_cores || '10 cores / 16 threads';
+    const host = pcInfo.host || 'ASRock Z690M Phantom Gaming 4';
+    const gpu = pcInfo.gpu || 'AMD Radeon RX 6700 XT';
+    const bios = pcInfo.bios || 'AMI 3.80';
+    const build = pcInfo.build || 'waifuOS 98 SE (custom rezi build)';
     const mem = '32576MiB/32600MiB';
-    const disk = (pc.storage || ['Samsung SSD 980 1TB'])[0];
-    const sd = (pc.storage || [])[1] || 'Generic- SD/MMC 59.5 GiB (USB)';
-    const net = pc.network || 'Intel(R) Ethernet Connection (17) I219-V';
+    const disk = (pcInfo.storage || ['Samsung SSD 980 1TB'])[0];
+    const sd = (pcInfo.storage || [])[1] || 'Generic- SD/MMC 59.5 GiB (USB)';
+    const net = pcInfo.network || 'Intel(R) Ethernet Connection (17) I219-V';
 
-    let t = 0.0;
+    let bootTime = 0.0;
     function stamp() {
-        t += 0.035 + Math.random() * 0.12;
-        return t.toFixed(6);
+        bootTime += 0.035 + Math.random() * 0.12;
+        return bootTime.toFixed(6);
     }
 
     const lines = [
         { text: 'Booting \'waifuOS 98 SE, with Linux 6.8.0-arch1-1-waifu\'' },
-        { text: 'boot', cls: 'cmd' },
-        { text: '[    0.000000] Linux version 6.8.0-arch1-1-waifu (buildbot@waifu.team) (gcc (GCC) 14.2.1 20250207) #1 SMP PREEMPT_DYNAMIC waifuOS 98 SE (Arch base)', cls: 'ok' },
+        { text: 'boot', lineClass: 'cmd' },
+        { text: '[    0.000000] Linux version 6.8.0-arch1-1-waifu (buildbot@waifu.team) (gcc (GCC) 14.2.1 20250207) #1 SMP PREEMPT_DYNAMIC waifuOS 98 SE (Arch base)', lineClass: 'ok' },
         { text: 'Command line: BOOT_IMAGE=/boot/vmlinuz-linux-waifu root=UUID=waifu-98se ro quiet splash' },
         { text: 'KERNEL supported cpus:' },
-        { text: '  Intel GenuineIntel 12th Gen Core i5-12600KF (' + cores + ')', cls: 'ok' },
+        { text: '  Intel GenuineIntel 12th Gen Core i5-12600KF (' + cores + ')', lineClass: 'ok' },
         { text: 'BIOS-provided physical RAM map:' },
         { text: '  BIOS-e820: [mem 0x0000000000000000-0x000000007f5fffff] usable (waifu BIOS)' },
         { text: 'Memory: ' + mem + ' available (14336K kernel code, 4096K rwdata, 5120K rodata, 4096K init, 8192K bss)' },
-        { text: 'ACPI: Host Platform: waifu.team — ' + build, cls: 'ok' },
+        { text: 'ACPI: Host Platform: waifu.team — ' + build, lineClass: 'ok' },
         { text: 'ACPI: Host OEM: ' + host + ' / ' + bios },
-        { text: 'pci 0000:03:00.0: [1002:73df] ' + gpu + ' (navi22) vgaarb: setting as boot VGA device', cls: 'ok' },
+        { text: 'pci 0000:03:00.0: [1002:73df] ' + gpu + ' (navi22) vgaarb: setting as boot VGA device', lineClass: 'ok' },
         { text: 'nvme0n1: ' + disk + ', 1000202273280 bytes' },
         { text: 'usb-storage: ' + sd + ', SCSI emulated' },
         { text: 'e1000e 0000:00:1f.6 eth0: ' + net },
@@ -155,38 +158,38 @@ function runKernelLog(done) {
         { text: 'systemd[1]: Running in \'waifu\' mode.' },
         { text: 'systemd[1]: Starting waifuOS boot services...' },
         { text: 'systemd[1]: Starting Login Service...' },
-        { text: 'systemd[1]: Started waifuOS Display Manager (waifuDM).', cls: 'ok' },
+        { text: 'systemd[1]: Started waifuOS Display Manager (waifuDM).', lineClass: 'ok' },
         { text: 'systemd[1]: Starting waifu.desktop.service...' },
-        { text: 'systemd[1]: Started waifu.desktop.service (waifuOS 98 SE desktop).', cls: 'ok' },
-        { text: '[ OK ] Reached target waifu.team — graphical interface ready.', cls: 'ok' }
+        { text: 'systemd[1]: Started waifu.desktop.service (waifuOS 98 SE desktop).', lineClass: 'ok' },
+        { text: '[ OK ] Reached target waifu.team — graphical interface ready.', lineClass: 'ok' }
     ];
 
-    let i = 0;
+    let lineIndex = 0;
     function nextLine() {
-        if (i >= lines.length) { setTimeout(loginPrompt, 250); return; }
-        const line = lines[i++];
-        addLine(line.text, line.cls);
+        if (lineIndex >= lines.length) { setTimeout(loginPrompt, 250); return; }
+        const line = lines[lineIndex++];
+        addLine(line.text, line.lineClass);
         setTimeout(nextLine, 90);
     }
 
-    function addLine(text, cls) {
-        const div = document.createElement('div');
-        if (cls === 'cmd') {
-            div.innerHTML = '<span class="k-time">grub&gt; </span><span class="k-cmd">' + esc(text) + '</span>';
+    function addLine(text, lineClass) {
+        const lineElement = document.createElement('div');
+        if (lineClass === 'cmd') {
+            lineElement.innerHTML = '<span class="k-time">grub&gt; </span><span class="k-cmd">' + escapeText(text) + '</span>';
         } else {
-            div.innerHTML = '<span class="k-time">[' + stamp() + '] </span>' + (cls === 'ok' ? '<span class="k-ok">' + esc(text) + '</span>' : esc(text));
+            lineElement.innerHTML = '<span class="k-time">[' + stamp() + '] </span>' + (lineClass === 'ok' ? '<span class="k-ok">' + escapeText(text) + '</span>' : escapeText(text));
         }
-        log.appendChild(div);
+        log.appendChild(lineElement);
         screen.scrollTop = screen.scrollHeight;
     }
 
-    function typeText(div, text, speed, doneFn) {
-        let n = 0;
-        const iv = setInterval(function () {
-            n++;
-            div.textContent = text.slice(0, n);
+    function typeText(lineElement, text, speed, onDone) {
+        let charCount = 0;
+        const typingInterval = setInterval(function () {
+            charCount++;
+            lineElement.textContent = text.slice(0, charCount);
             screen.scrollTop = screen.scrollHeight;
-            if (n >= text.length) { clearInterval(iv); if (doneFn) doneFn(); }
+            if (charCount >= text.length) { clearInterval(typingInterval); if (onDone) onDone(); }
         }, speed);
     }
 
@@ -219,18 +222,18 @@ function runKernelLog(done) {
 
             typeText(pass, '********', 55, function () {
                 setTimeout(function () {
-                    const w = document.createElement('div');
-                    w.innerHTML = 'Last login: <span class="k-dim">on tty1</span>';
-                    log.appendChild(w);
-                    const w2 = document.createElement('div');
-                    w2.innerHTML = '<span class="k-ok">Welcome to WaifuOS 98 SE!</span> (c) 1998-2026 waifu.team';
-                    log.appendChild(w2);
-                    const w3 = document.createElement('div');
-                    w3.innerHTML = 'Custom build: <span class="k-dim">' + esc(build) + '</span>';
-                    log.appendChild(w3);
-                    const w4 = document.createElement('div');
-                    w4.innerHTML = 'The system is up and running. <span class="k-warn">tip: press Alt for the Start Menu.</span>';
-                    log.appendChild(w4);
+                    const welcomeLine = document.createElement('div');
+                    welcomeLine.innerHTML = 'Last login: <span class="k-dim">on tty1</span>';
+                    log.appendChild(welcomeLine);
+                    const welcomeLine2 = document.createElement('div');
+                    welcomeLine2.innerHTML = '<span class="k-ok">Welcome to WaifuOS 98 SE!</span> (c) 1998-2026 waifu.team';
+                    log.appendChild(welcomeLine2);
+                    const welcomeLine3 = document.createElement('div');
+                    welcomeLine3.innerHTML = 'Custom build: <span class="k-dim">' + escapeText(build) + '</span>';
+                    log.appendChild(welcomeLine3);
+                    const welcomeLine4 = document.createElement('div');
+                    welcomeLine4.innerHTML = 'The system is up and running. <span class="k-warn">tip: press Alt for the Start Menu.</span>';
+                    log.appendChild(welcomeLine4);
                     screen.scrollTop = screen.scrollHeight;
 
                     setTimeout(function () {

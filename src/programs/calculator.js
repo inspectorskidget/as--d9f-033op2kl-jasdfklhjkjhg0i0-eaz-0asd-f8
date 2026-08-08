@@ -1,4 +1,4 @@
-import { createWindow } from '../modules/windowFactory.js';
+﻿import { createWindow } from '../modules/windowFactory.js';
 
 export function renderCalculator() {
     const winId = 'window-calculator';
@@ -70,16 +70,16 @@ export function renderCalculator() {
         `
     });
 
-    const win = document.getElementById(winId);
-    if (win) {
-        win.style.width = '300px';
-        win.style.height = 'auto';
-        win.style.resize = 'none';
+    const windowEl = document.getElementById(winId);
+    if (windowEl) {
+        windowEl.style.width = '300px';
+        windowEl.style.height = 'auto';
+        windowEl.style.resize = 'none';
     }
 
-    const screen = win ? win.querySelector('#calc-screen') : null;
-    const keypad = win ? win.querySelector('.calc-container') : null;
-    const memIndicator = win ? win.querySelector('#calc-mem-indicator') : null;
+    const screen = windowEl ? windowEl.querySelector('#calc-screen') : null;
+    const keypad = windowEl ? windowEl.querySelector('.calc-container') : null;
+    const memIndicator = windowEl ? windowEl.querySelector('#calc-mem-indicator') : null;
 
     if (!screen || !keypad) return;
 
@@ -272,8 +272,8 @@ export function renderCalculator() {
         unaryApplied = false;
     }
 
-    keypad.addEventListener('click', function (e) {
-        const target = e.target;
+    keypad.addEventListener('click', function (event) {
+        const target = event.target;
         if (!target.matches('button')) return;
 
         const action = target.dataset.action;

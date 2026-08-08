@@ -1,4 +1,4 @@
-import { openWindow } from './windowManager.js';
+﻿import { openWindow } from './windowManager.js';
 import { playSound } from './audioManager.js';
 import { getConfig } from '../config.js';
 
@@ -22,14 +22,14 @@ export function initSelectionBox() {
     let startX = 0;
     let startY = 0;
 
-    desktop.addEventListener('mousedown', function (e) {
-        if (e.button === 2 || e.target.closest('.desktop-icon') || e.target.closest('.taskbar')) return;
+    desktop.addEventListener('mousedown', function (event) {
+        if (event.button === 2 || event.target.closest('.desktop-icon') || event.target.closest('.taskbar')) return;
 
-        document.querySelectorAll('.desktop-icon.selection').forEach(function (i) { i.classList.remove('selection'); });
+        document.querySelectorAll('.desktop-icon.selection').forEach(function (icon) { icon.classList.remove('selection'); });
 
         isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
+        startX = event.clientX;
+        startY = event.clientY;
 
         selectionBox.style.left = startX + 'px';
         selectionBox.style.top = startY + 'px';
@@ -42,16 +42,16 @@ export function initSelectionBox() {
     let lastClickedIcon = null;
     let justFinishedDragging = false;
 
-    desktop.addEventListener('click', function (e) {
+    desktop.addEventListener('click', function (event) {
         if (justFinishedDragging) {
             justFinishedDragging = false;
             return;
         }
 
-        const icon = e.target.closest('.desktop-icon');
+        const icon = event.target.closest('.desktop-icon');
 
         if (!icon) {
-            document.querySelectorAll('.desktop-icon.selection').forEach(function (i) { i.classList.remove('selection'); });
+            document.querySelectorAll('.desktop-icon.selection').forEach(function (icon) { icon.classList.remove('selection'); });
             return;
         }
 
@@ -67,7 +67,7 @@ export function initSelectionBox() {
                 openWindow(icon.dataset.window);
             }
         } else {
-            document.querySelectorAll('.desktop-icon.selection').forEach(function (i) { i.classList.remove('selection'); });
+            document.querySelectorAll('.desktop-icon.selection').forEach(function (icon) { icon.classList.remove('selection'); });
             icon.classList.add('selection');
 
             lastClickedIcon = icon;
@@ -79,11 +79,11 @@ export function initSelectionBox() {
         }
     });
 
-    document.addEventListener('mousemove', function (e) {
+    document.addEventListener('mousemove', function (event) {
         if (!isDragging) return;
 
-        const currentX = e.clientX;
-        const currentY = e.clientY;
+        const currentX = event.clientX;
+        const currentY = event.clientY;
 
         const width = Math.abs(currentX - startX);
         const height = Math.abs(currentY - startY);
@@ -134,8 +134,8 @@ export function initSelectionBox() {
 
         document.getElementById('ctx-refresh').addEventListener('click', function () {
             const icons = document.querySelectorAll('.desktop-icon');
-            icons.forEach(function (i) { i.style.visibility = 'hidden'; });
-            setTimeout(function () { icons.forEach(function (i) { i.style.visibility = 'visible'; }); }, 100);
+            icons.forEach(function (icon) { icon.style.visibility = 'hidden'; });
+            setTimeout(function () { icons.forEach(function (icon) { icon.style.visibility = 'visible'; }); }, 100);
             hideContextMenu();
         });
 
@@ -161,14 +161,14 @@ export function initSelectionBox() {
         }
     }
 
-    desktop.addEventListener('contextmenu', function (e) {
-        if (e.target.closest('.desktop-icon') || e.target.closest('.window') || e.target.closest('.taskbar')) return;
+    desktop.addEventListener('contextmenu', function (event) {
+        if (event.target.closest('.desktop-icon') || event.target.closest('.window') || event.target.closest('.taskbar')) return;
 
-        e.preventDefault();
+        event.preventDefault();
         playSound('menu');
 
-        let x = e.clientX;
-        let y = e.clientY;
+        let x = event.clientX;
+        let y = event.clientY;
 
         const tbMenu = document.getElementById('taskbar-context-menu');
         if (tbMenu) tbMenu.style.display = 'none';
@@ -181,18 +181,18 @@ export function initSelectionBox() {
         contextMenu.style.top = y + 'px';
     });
 
-    document.addEventListener('mousedown', function (e) {
-        if (e.button === 0 && !e.target.closest('#context-menu')) {
+    document.addEventListener('mousedown', function (event) {
+        if (event.button === 0 && !event.target.closest('#context-menu')) {
             hideContextMenu();
         }
     });
 }
 
 function githubUrlFromConfig() {
-    const cfg = getConfig();
-    const socials = (cfg.profile && cfg.profile.socials) || [];
-    for (let i = 0; i < socials.length; i++) {
-        if (socials[i].type === 'github') return socials[i].url || 'https://github.com/';
+    const config = getConfig();
+    const socials = (config.profile && config.profile.socials) || [];
+    for (let icon = 0; icon < socials.length; icon++) {
+        if (socials[icon].type === 'github') return socials[icon].url || 'https://github.com/';
     }
     return 'https://github.com/';
 }

@@ -1,5 +1,5 @@
-import { createWindow } from '../modules/windowFactory.js';
-import { getConfig, esc } from '../config.js';
+﻿import { createWindow } from '../modules/windowFactory.js';
+import { getConfig, escapeText } from '../config.js';
 import { getDiscordStatus, onDiscordStatus } from '../modules/discordStatus.js';
 
 const STATUS_COLORS = { online: '#4ade80', idle: '#f5b942', dnd: '#f87171', offline: '#888888' };
@@ -8,9 +8,9 @@ export function renderAbout() {
     const winId = 'window-about';
     if (document.getElementById(winId)) return;
 
-    const cfg = getConfig();
-    const p = cfg.profile || {};
-    const site = cfg.site || {};
+    const config = getConfig();
+    const profile = config.profile || {};
+    const site = config.site || {};
 
     const menuHTML = `
         <div class="menu-item">File</div>
@@ -19,11 +19,11 @@ export function renderAbout() {
         <div class="menu-item">Help</div>
     `;
 
-    const socials = (p.socials || []).map(function (s) {
-        if (s.type === 'discord') {
-            return '<li><a class="js-copy-discord" href="javascript:void(0)">' + esc(s.label || 'Discord') + ' — copy username</a></li>';
+    const socials = (profile.socials || []).map(function (social) {
+        if (social.type === 'discord') {
+            return '<li><a class="js-copy-discord" href="javascript:void(0)">' + escapeText(social.label || 'Discord') + ' — copy username</a></li>';
         }
-        return '<li><a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label || s.type) + '</a></li>';
+        return '<li><a href="' + escapeText(social.url) + '" target="_blank" rel="noopener">' + escapeText(social.label || social.type) + '</a></li>';
     }).join('');
 
     const bodyHTML = `
@@ -34,17 +34,17 @@ export function renderAbout() {
 
             <h3>Who am I?</h3>
             <br>
-            <p><b>${esc(p.displayName || 'rezi')}</b> — <i>${esc(p.tagline || '')}</i></p>
-            <p>${esc(p.bio || '')}</p>
+            <p><b>${escapeText(profile.displayName || 'rezi')}</b> — <i>${escapeText(profile.tagline || '')}</i></p>
+            <p>${escapeText(profile.bio || '')}</p>
 
             <hr>
 
             <h3>Meta</h3>
             <br>
             <ul>
-                <li><b>Status:</b> <span id="about-status">${esc(p.status || 'online')}</span></li>
-                <li><b>Location:</b> ${esc(p.location || 'unknown')}</li>
-                <li><b>OS:</b> Arch Linux x86_64 <i style="color:#888">(waifuOS 98 SE — ${esc((cfg.pc_info && cfg.pc_info.build) || 'custom build')})</i></li>
+                <li><b>Status:</b> <span id="about-status">${escapeText(profile.status || 'online')}</span></li>
+                <li><b>Location:</b> ${escapeText(profile.location || 'unknown')}</li>
+                <li><b>OS:</b> Arch Linux x86_64 <i style="color:#888">(waifuOS 98 SE — ${escapeText((config.pc_info && config.pc_info.build) || 'custom build')})</i></li>
             </ul>
 
             <hr>
@@ -57,7 +57,7 @@ export function renderAbout() {
 
             <br>
             <p style="text-align: center; color: #888; font-size: 12px;">
-                <i>${esc(site.copyright || 'rezi (C)2026. All Rights Reserved.')}</i>
+                <i>${escapeText(site.copyright || 'rezi (C)2026. All Rights Reserved.')}</i>
             </p>
         </div>
     `;
@@ -70,48 +70,48 @@ export function renderAbout() {
         isCentered: false
     });
 
-    const win = document.getElementById(winId);
+    const windowEl = document.getElementById(winId);
 
-    const statusEl = win.querySelector('#about-status');
+    const statusEl = windowEl.querySelector('#about-status');
     if (statusEl) {
-        const apply = function (status) {
-            const st = status || p.status || 'online';
-            statusEl.textContent = st === 'dnd' ? 'do not disturb' : st;
-            statusEl.style.color = STATUS_COLORS[st] || STATUS_COLORS.online;
+        const applyStatus = function (status) {
+            const statusText = status || profile.status || 'online';
+            statusEl.textContent = statusText === 'dnd' ? 'do not disturb' : statusText;
+            statusEl.style.color = STATUS_COLORS[statusText] || STATUS_COLORS.online;
             statusEl.style.fontWeight = 'bold';
         };
-        apply(getDiscordStatus());
-        onDiscordStatus(apply);
+        applyStatus(getDiscordStatus());
+        onDiscordStatus(applyStatus);
     }
 
-    const copyBtn = win.querySelector('.js-copy-discord');
+    const copyBtn = windowEl.querySelector('.js-copy-discord');
     if (copyBtn) {
         copyBtn.addEventListener('click', function () {
-            copyText(cfg.discord && cfg.discord.username ? cfg.discord.username : 'rezi.lol', copyBtn);
+            copyText(config.discord && config.discord.username ? config.discord.username : 'rezi.lol', copyBtn);
         });
     }
 }
 
-function copyText(text, btn) {
+function copyText(text, button) {
     function done() {
-        if (btn) {
-            const old = btn.textContent;
-            btn.textContent = 'copied "' + text + '" to clipboard';
-            setTimeout(function () { btn.textContent = old; }, 1500);
+        if (button) {
+            const old = button.textContent;
+            button.textContent = 'copied "' + text + '" to clipboard';
+            setTimeout(function () { button.textContent = old; }, 1500);
         }
     }
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(done, function () { fallback(); });
     } else { fallback(); }
     function fallback() {
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand('copy'); } catch (e) {}
-        document.body.removeChild(ta);
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        try { document.execCommand('copy'); } catch (error) {}
+        document.body.removeChild(textArea);
         done();
     }
 }

@@ -1,4 +1,4 @@
-import { playSound } from './audioManager.js';
+﻿import { playSound } from './audioManager.js';
 
 export function initStartMenu() {
     const startButton = document.querySelector('.start-button');
@@ -9,14 +9,14 @@ export function initStartMenu() {
         startButton.classList.toggle('active');
     };
 
-    startButton.addEventListener('click', function (e) {
-        e.stopPropagation();
+    startButton.addEventListener('click', function (event) {
+        event.stopPropagation();
         playSound('click');
         window.toggleStartMenu();
     });
 
-    startMenu.addEventListener('click', function (e) {
-        e.stopPropagation();
+    startMenu.addEventListener('click', function (event) {
+        event.stopPropagation();
     });
 
     document.addEventListener('click', function () {

@@ -1,4 +1,4 @@
-let CONFIG = null;
+﻿let CONFIG = null;
 
 const FALLBACK = {
     site: { name: "rezi.lol", copyright: "rezi (C)2026. All Rights Reserved.", greeting: "Greetings, -rezi" },
@@ -40,12 +40,12 @@ const FALLBACK = {
 export function loadConfig() {
     if (CONFIG) return Promise.resolve(CONFIG);
     return fetch('config.json', { cache: 'no-store' })
-        .then(function (r) {
-            if (!r.ok) throw new Error('config fetch failed: ' + r.status);
-            return r.json();
+        .then(function (response) {
+            if (!response.ok) throw new Error('config fetch failed: ' + response.status);
+            return response.json();
         })
-        .then(function (cfg) {
-            CONFIG = deepMerge(FALLBACK, cfg || {});
+        .then(function (config) {
+            CONFIG = deepMerge(FALLBACK, config || {});
             return CONFIG;
         })
         .catch(function () {
@@ -60,23 +60,23 @@ export function getConfig() {
 
 function deepMerge(base, extra) {
     var out = {};
-    Object.keys(base).forEach(function (k) {
-        out[k] = base[k];
+    Object.keys(base).forEach(function (key) {
+        out[key] = base[key];
     });
-    Object.keys(extra || {}).forEach(function (k) {
-        var b = base[k];
-        var e = extra[k];
-        if (b && e && typeof b === 'object' && !Array.isArray(b) && !Array.isArray(e)) {
-            out[k] = deepMerge(b, e);
+    Object.keys(extra || {}).forEach(function (key) {
+        var baseValue = base[key];
+        var extraValue = extra[key];
+        if (baseValue && extraValue && typeof baseValue === 'object' && !Array.isArray(baseValue) && !Array.isArray(extraValue)) {
+            out[key] = deepMerge(baseValue, extraValue);
         } else {
-            out[k] = e;
+            out[key] = extraValue;
         }
     });
     return out;
 }
 
-export function esc(s) {
-    return String(s == null ? '' : s)
+export function escapeText(text) {
+    return String(text == null ? '' : text)
         .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }

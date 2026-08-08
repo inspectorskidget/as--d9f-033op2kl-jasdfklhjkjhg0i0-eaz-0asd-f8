@@ -1,4 +1,4 @@
-import { bringToFront, closeWindow, minimizeWindow, openWindow } from './windowManager.js';
+﻿import { bringToFront, closeWindow, minimizeWindow, openWindow } from './windowManager.js';
 import { playSound } from './audioManager.js';
 
 let activeContextWindowId = null;
@@ -19,8 +19,8 @@ function initTaskbarContextMenu() {
     document.getElementById('tb-ctx-minimize').addEventListener('click', function () {
         if (!activeContextWindowId) return;
 
-        const win = document.getElementById(activeContextWindowId);
-        const isOpen = win && win.classList.contains('open');
+        const windowEl = document.getElementById(activeContextWindowId);
+        const isOpen = windowEl && windowEl.classList.contains('open');
 
         if (isOpen) {
             minimizeWindow(activeContextWindowId);
@@ -38,8 +38,8 @@ function initTaskbarContextMenu() {
         menu.style.display = 'none';
     });
 
-    document.addEventListener('mousedown', function (e) {
-        if (e.button === 0 && !e.target.closest('#taskbar-context-menu')) {
+    document.addEventListener('mousedown', function (event) {
+        if (event.button === 0 && !event.target.closest('#taskbar-context-menu')) {
             menu.style.display = 'none';
         }
     });
@@ -96,22 +96,22 @@ export function createTaskbarButton(windowId, windowElement) {
         }
     };
 
-    button.addEventListener('contextmenu', function (e) {
-        e.preventDefault();
+    button.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
         playSound('menu');
 
         activeContextWindowId = windowId;
         const menu = document.getElementById('taskbar-context-menu');
-        const win = document.getElementById(windowId);
-        const isOpen = win && win.classList.contains('open');
+        const windowEl = document.getElementById(windowId);
+        const isOpen = windowEl && windowEl.classList.contains('open');
         document.getElementById('tb-ctx-minimize').textContent = isOpen ? 'Minimize' : 'Open';
 
         const deskMenu = document.getElementById('context-menu');
         if (deskMenu) deskMenu.style.display = 'none';
         menu.style.display = 'flex';
 
-        let x = e.clientX;
-        let y = e.clientY;
+        let x = event.clientX;
+        let y = event.clientY;
 
         if (x + menu.offsetWidth > window.innerWidth) {
             x = window.innerWidth - menu.offsetWidth - 2;

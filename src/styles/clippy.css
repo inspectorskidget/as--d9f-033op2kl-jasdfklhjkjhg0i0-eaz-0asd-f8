@@ -8,7 +8,6 @@
     transition: opacity 0.3s ease;
     pointer-events: none;
 }
-
 .clippy-img {
     width: 100px; 
     height: auto;
@@ -16,7 +15,6 @@
     cursor: pointer;
     filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.6)); 
 }
-
 .clippy-bubble {
     background-color: #FFFFE1;
     border: 1px solid #000000;
@@ -31,7 +29,6 @@
     position: relative;
     pointer-events: auto;
 }
-
 .clippy-bubble::before {
     content: '';
     position: absolute;
@@ -42,7 +39,6 @@
     border-left: 10px solid black;
     transform: translateY(-50%);
 }
-
 .clippy-bubble::after {
     content: '';
     position: absolute;
@@ -53,7 +49,6 @@
     border-left: 9px solid #FFFFE1; 
     transform: translateY(-50%);
 }
-
 .clippy-close {
     position: absolute;
     top: 4px;
@@ -74,7 +69,6 @@
     color: var(--text-main);
     cursor: pointer;
 }
-
 .clippy-close:active {
     border-top: 1px solid var(--border-darkest);
     border-left: 1px solid var(--border-darkest);

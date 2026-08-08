@@ -1,4 +1,4 @@
-import { createTaskbarButton, removeTaskbarButton } from './taskbar.js';
+﻿import { createTaskbarButton, removeTaskbarButton } from './taskbar.js';
 import { playSound } from './audioManager.js';
 
 import { renderAbout } from '../programs/about.js';
@@ -26,12 +26,12 @@ const windowRegistry = {
 const hibernationVault = new Map();
 
 function hibernateWindow(windowId) {
-    const win = document.getElementById(windowId);
-    if (!win) return;
+    const windowEl = document.getElementById(windowId);
+    if (!windowEl) return;
 
-    const body = win.querySelector('.window-body');
+    const body = windowEl.querySelector('.window-body');
     if (body && body.childNodes.length > 0) {
-        win.dispatchEvent(new CustomEvent('window-hibernated'));
+        windowEl.dispatchEvent(new CustomEvent('window-hibernated'));
 
         const fragment = document.createDocumentFragment();
         while (body.firstChild) {
@@ -42,14 +42,14 @@ function hibernateWindow(windowId) {
 }
 
 function wakeUpWindow(windowId) {
-    const win = document.getElementById(windowId);
-    if (!win) return;
+    const windowEl = document.getElementById(windowId);
+    if (!windowEl) return;
 
-    const body = win.querySelector('.window-body');
+    const body = windowEl.querySelector('.window-body');
     if (body && hibernationVault.has(windowId)) {
         body.appendChild(hibernationVault.get(windowId));
         hibernationVault.delete(windowId);
-        win.dispatchEvent(new CustomEvent('window-woken'));
+        windowEl.dispatchEvent(new CustomEvent('window-woken'));
     }
 }
 
@@ -137,8 +137,8 @@ export function minimizeWindow(windowId, playAudio = true) {
 }
 
 export function initWindowListener() {
-    document.addEventListener('mousedown', function (e) {
-        const clickedWindow = e.target.closest('.window');
+    document.addEventListener('mousedown', function (event) {
+        const clickedWindow = event.target.closest('.window');
         if (clickedWindow) bringToFront(clickedWindow);
     });
 }

@@ -1,4 +1,4 @@
-import { bringToFront } from './windowManager.js';
+﻿import { bringToFront } from './windowManager.js';
 
 export function initDraggableWindows() {
     let isDragging = false;
@@ -12,10 +12,10 @@ export function initDraggableWindows() {
     let ticking = false;
     let hasDragged = false;
 
-    document.addEventListener('mousedown', (e) => {
-        const titleBar = e.target.closest('.title-bar');
+    document.addEventListener('mousedown', (event) => {
+        const titleBar = event.target.closest('.title-bar');
         
-        if (!titleBar || e.target.closest('.title-bar-controls')) return;
+        if (!titleBar || event.target.closest('.title-bar-controls')) return;
 
         const windowEl = titleBar.closest('.window');
         
@@ -34,8 +34,8 @@ export function initDraggableWindows() {
             
             windowStartX = rect.left;
             windowStartY = rect.top;
-            dragStartX = e.clientX;
-            dragStartY = e.clientY;
+            dragStartX = event.clientX;
+            dragStartY = event.clientY;
             currentDx = 0;
             currentDy = 0;
             
@@ -47,13 +47,13 @@ export function initDraggableWindows() {
         }
     });
 
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener('mousemove', (event) => {
         if (!isDragging || !currentWindow) return;
 
-        e.preventDefault();
+        event.preventDefault();
 
-        const currentX = e.clientX;
-        const currentY = e.clientY;
+        const currentX = event.clientX;
+        const currentY = event.clientY;
         if (Math.abs(currentX - dragStartX) > 2 || Math.abs(currentY - dragStartY) > 2) {
             hasDragged = true;
         }
@@ -74,17 +74,17 @@ export function initDraggableWindows() {
 
     document.addEventListener('mouseup', () => {
         if (currentWindow && isDragging) {
-            const win = currentWindow; 
+            const windowEl = currentWindow; 
             
-            win.style.left = (windowStartX + currentDx) + 'px';
-            win.style.top = (windowStartY + currentDy) + 'px';
+            windowEl.style.left = (windowStartX + currentDx) + 'px';
+            windowEl.style.top = (windowStartY + currentDy) + 'px';
             
-            win.style.transform = 'none';
-            win.style.willChange = 'auto';
+            windowEl.style.transform = 'none';
+            windowEl.style.willChange = 'auto';
             
-            void win.offsetWidth; 
+            void windowEl.offsetWidth; 
             
-            win.style.transition = '';
+            windowEl.style.transition = '';
 
             document.body.classList.remove('is-dragging');
         }
@@ -97,10 +97,10 @@ export function initDraggableWindows() {
         }, 50);
     });
 
-    window.addEventListener('click', (e) => {
+    window.addEventListener('click', (event) => {
         if (hasDragged) {
-            e.stopPropagation(); 
-            e.preventDefault();
+            event.stopPropagation(); 
+            event.preventDefault();
         }
     }, true);
 }

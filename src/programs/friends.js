@@ -1,18 +1,18 @@
-import { createWindow } from '../modules/windowFactory.js';
-import { getConfig, esc } from '../config.js';
+﻿import { createWindow } from '../modules/windowFactory.js';
+import { getConfig, escapeText } from '../config.js';
 
 export function renderFriends() {
     const winId = 'window-friends';
     if (document.getElementById(winId)) return;
 
-    const cfg = getConfig();
-    const friends = cfg.friends || [];
+    const config = getConfig();
+    const friends = config.friends || [];
 
     const rows = friends.map(function (friend, idx) {
         return '<div class="friend-row" data-idx="' + idx + '">' +
             '<img src="icons/friends.svg" alt="">' +
-            '<span class="friend-alias">' + esc(friend.alias || '?') + '</span>' +
-            '<span class="friend-id">' + esc(friend.id || 'no id') + '</span>' +
+            '<span class="friend-alias">' + escapeText(friend.alias || '?') + '</span>' +
+            '<span class="friend-id">' + escapeText(friend.id || 'no id') + '</span>' +
             '</div>';
     }).join('') || '<div style="padding: 12px; font-family: var(--system-font); font-size: 12px;">no friends yet</div>';
 
@@ -27,13 +27,13 @@ export function renderFriends() {
         isCentered: true
     });
 
-    const win = document.getElementById(winId);
-    win.querySelectorAll('.friend-row').forEach(function (row) {
+    const windowEl = document.getElementById(winId);
+    windowEl.querySelectorAll('.friend-row').forEach(function (row) {
         row.addEventListener('click', function () {
-            const friend = (cfg.friends || [])[parseInt(row.getAttribute('data-idx'), 10)];
+            const friend = (config.friends || [])[parseInt(row.getAttribute('data-idx'), 10)];
             if (!friend || !friend.id) return;
             copyText(friend.id, function () {
-                const header = win.querySelector('.friends-header span:last-child');
+                const header = windowEl.querySelector('.friends-header span:last-child');
                 if (!header) return;
                 const old = header.textContent;
                 header.textContent = 'copied ' + (friend.alias || 'friend') + '\'s id';
@@ -45,14 +45,14 @@ export function renderFriends() {
 
 function copyText(text, done) {
     function fallback() {
-        var ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand('copy'); } catch (e) {}
-        document.body.removeChild(ta);
+        var textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        try { document.execCommand('copy'); } catch (error) {}
+        document.body.removeChild(textArea);
         done();
     }
     if (navigator.clipboard && navigator.clipboard.writeText) {

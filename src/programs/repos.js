@@ -1,18 +1,18 @@
-import { createWindow } from '../modules/windowFactory.js';
-import { getConfig, esc } from '../config.js';
+﻿import { createWindow } from '../modules/windowFactory.js';
+import { getConfig, escapeText } from '../config.js';
 
 export function renderRepos() {
     const winId = 'window-repos';
     if (document.getElementById(winId)) return;
 
-    const cfg = getConfig();
-    const repos = cfg.repos || [];
+    const config = getConfig();
+    const repos = config.repos || [];
 
     const rows = repos.map(function (repo, idx) {
         return '<div class="repo-item" data-idx="' + idx + '">' +
             '<img src="icons/github.svg" alt="">' +
-            '<span class="repo-name">' + esc(repo.name || 'untitled') + '</span>' +
-            '<span class="repo-desc">' + esc(repo.desc || '') + '</span>' +
+            '<span class="repo-name">' + escapeText(repo.name || 'untitled') + '</span>' +
+            '<span class="repo-desc">' + escapeText(repo.desc || '') + '</span>' +
             '</div>';
     }).join('') || '<div style="padding: 12px; font-family: var(--system-font); font-size: 12px;">no repos yet</div>';
 
@@ -28,7 +28,7 @@ export function renderRepos() {
 
     document.getElementById(winId).querySelectorAll('.repo-item').forEach(function (row) {
         row.addEventListener('click', function () {
-            const repo = (cfg.repos || [])[parseInt(row.getAttribute('data-idx'), 10)];
+            const repo = (config.repos || [])[parseInt(row.getAttribute('data-idx'), 10)];
             if (repo && repo.url) window.open(repo.url, '_blank');
         });
     });

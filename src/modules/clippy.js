@@ -1,12 +1,12 @@
-import { playSound } from './audioManager.js';
-import { getConfig, esc } from '../config.js';
+﻿import { playSound } from './audioManager.js';
+import { getConfig, escapeText } from '../config.js';
 
 export function initClippy() {
     setTimeout(function () {
         if (document.getElementById('clippy-container')) return;
 
-        const cfg = getConfig();
-        const user = (cfg.profile && cfg.profile.displayName) || 'rezi';
+        const config = getConfig();
+        const user = (config.profile && config.profile.displayName) || 'rezi';
 
         const clippyContainer = document.createElement('div');
         clippyContainer.id = 'clippy-container';
@@ -17,7 +17,7 @@ export function initClippy() {
                 <div class="clippy-text">
                     It looks like you want to explore the system!<br><br>
                     <b>Tip:</b> Press the <b>(Alt)</b> key on your keyboard to quickly open the Start Menu.
-                    Open the Terminal and type <b>neofetch</b> for system info. — <b>${esc(user)}</b>
+                    Open the Terminal and type <b>neofetch</b> for system info. — <b>${escapeText(user)}</b>
                 </div>
             </div>
             <img src="assets/clippy.gif" alt="Clippy" class="clippy-img" id="clippy-img">
