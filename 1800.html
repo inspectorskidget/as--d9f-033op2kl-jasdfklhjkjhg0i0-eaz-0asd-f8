@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Cache-control" content="public">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link rel="preload" href="WOFF/FreeSerif-YO4a.woff" as="font" type="font/woff">
+  <link rel="preload" href="WOFF/jackeyfont.woff" as="font" type="font/woff">
+  <link rel="preload" href="crt.css" as="style">
+  <link rel="preload" href="desktop.css" as="style">
+  <link rel="stylesheet" href="desktop.css">
+  <link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="https://unpkg.com/98.css">
+
+  <link href="https://fonts.cdnfonts.com/css/vcr-osd-mono" rel="stylesheet">
+  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css" />
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  <script src="index.js"></script>
+  <script src="audio.js"></script>
+
+  <style>
+    #snow-container { position: fixed; inset: 0; pointer-events: none; z-index: 15; }
+    .snowflake {
+      position: absolute;
+      background: white;
+      opacity: 0;
+      transition: opacity 1s ease-in;
+    }
+    .profile-pic {
+      border-radius: 50%;
+      object-fit: cover;
+    }
+.desktop-icon {
+    display: grid;
+    grid-template-columns: repeat(2, 90px);
+    grid-auto-rows: auto;
+    gap: 18px 22px;
+    align-content: start;
+}
+.desktop-icon.user {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.desktop-icon-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+	
+.icon-name {
+    margin-top: 5px;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+}
+
+    .desktop-icon-wrapper .icon-name {
+      margin-top: 5px;
+      font-size: 12px;
+    }
+  </style>
+
+  <title>「1-800」</title>
+  <meta name="theme-color" content="#000">
+
+  <meta property="og:title" content="「1-800」" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="$1800$" />
+</head>
+
+<body x-data="{menu: false, readme: false, showLogin: true, profile: [false, false, false, false, false, false], documents: false, selectedFolder: null}">
+  <script>
+    $(function () {
+      $(".draggable").draggable({
+        start: function () {
+          $(this).css({ transform: "none", top: $(this).offset().top + "px", left: $(this).offset().left + "px" });
+        }
+      });
+    });
+  </script>
+  <div id="snow-container"></div>
+  <crt id="crt"></crt>
+  <div id="enter" x-show="showLogin">
+    <div class="window enter-screen">
+      <div class="title-bar">
+        <div class="title-bar-text">User Login</div>
+        <div class="title-bar-controls">
+          <button aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-wrapper">
+        <div class="window-content">
+          <form>
+            <fieldset>
+              <legend>Login</legend>
+
+
+              <p>Login as user</p>
+              <select name="wallpaper" size="1">
+                <option>Scrapted</option>
+                <option>Hatred</option>
+              </select>
+            </fieldset>
+          </form>
+        </div>
+
+        <div class="window-actions">
+          <button @click="showLogin = false" class="window-action-button main">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="main" x-show="!showLogin">
+    <div id="desktop">
+      </br></br>
+      <center>
+        <h4 style="color: #fff">1-800.sh</h4>
+        <h4 style="color: #fff; top: 70px !important; font-size: 0.5em !important" id="mobile-notice"></h4>
+      </center>
+
+      <div class="desktop-icons-container">
+        <div class="desktop-icons">
+          <div class="desktop-icon-wrapper">
+            <div x-init="profile[0] = false" @click="profile[0] = true" onclick="showPopup('PopUpSca')" :style="`background-image: url(Members/scrapted.png);user-select: none;`" class="desktop-icon user" title="Scrapted"></div>
+            <span class="icon-name">Scrapted</span>
+          </div>
+          <div class="desktop-icon-wrapper">
+            <div x-init="profile[0] = false" @click="profile[0] = true" onclick="showPopup('PopUpNov')" :style="`background-image: url(Members/pure.png);user-select: none;`" class="desktop-icon user" title="Hatred"></div>
+            <span class="icon-name">Hatred</span>
+          </div>
+		  <div class="desktop-icon-wrapper">
+            <div x-init="profile[4] = false" @click="profile[4] = true" onclick="showPopup('PopUpDemeter')" :style="`background-image: url(Members/savior.png);user-select: none;`" class="desktop-icon user" title="Savior"></div>
+            <span class="icon-name">Savior</span>
+          </div>
+		  <div class="desktop-icon-wrapper">
+            <div x-init="profile[5] = false"@click="profile[5] = true" onclick="showPopup('PopUpVayne')" :style="`background-image: url(Members/wayne.png);user-select: none;`" class="desktop-icon user" title="Wayne"></div>
+            <span class="icon-name">Wayne</span>
+		   </div>
+          <div class="desktop-icon-wrapper">
+            <div x-init="profile[1] = false" @click="profile[1] = true" onclick="showPopup('PopUpReiko')" :style="`background-image: url(Members/immunity.png);user-select: none;`" class="desktop-icon user" title="Immunity"></div>
+            <span class="icon-name">Immunity</span>
+          </div>
+          <div class="desktop-icon-wrapper">
+            <div x-init="profile[2] = false" @click="profile[2] = true" onclick="showPopup('PopUpConvict')" :style="`background-image: url(Members/haunt.png);user-select: none;`" class="desktop-icon user" title="Haunt"></div>
+            <span class="icon-name">Haunt</span>
+          </div>
+          <div class="desktop-icon-wrapper">
+            <div x-init="profile[3] = false" @click="profile[3] = true" onclick="showPopup('PopUpIntel')" :style="`background-image: url(Members/cold.png);user-select: none;`" class="desktop-icon user" title="Cold"></div>
+            <span class="icon-name">Cold</span>
+          </div>
+          <div class="desktop-icon-wrapper">
+            <div x-init="profile[3] = false" @click="profile[3] = true" onclick="showPopup('PopUpKyle')" :style="`background-image: url(Members/Kyle.png);user-select: none;`" class="desktop-icon user" title="Kyle"></div>
+            <span class="icon-name">Kyle</span>
+          </div>
+      </div>
+      
+        
+      <div id="toolbar">
+        <div class="toolbar-start-menu">
+          <button @click="menu = !menu" class="start-button">
+            Start
+          </button>
+
+        </div>
+        <div class="toolbar-separator"></div>
+
+        <!-- Start Menu -->
+        <template x-if="menu">
+          <div class="start-menu" style="display: block;">
+            <div class="start-menu-wrapper" style="opacity: 1; display: block;">
+              <div class="start-menu-side-text w-row">
+                <div class="start-menu-side-text w-col w-col-2">
+                  <div class="start-menu-side-text wrapper">
+                    <div class="start-menu-win-95-text"><strong>1-800</strong></div>
+                  </div>
+                </div>
+                <div class="start-menu-options-column w-col w-col-10" style="user-select: none;">
+                  <div class="start-menu-options">
+                    <img src="https://web.archive.org/web/20230411005324im_/https://vile.sh/images/icons/57b1c44254eef5b558d0147b_Programs32x32.png" width="41">
+                    <div class="programs start-menu-options-text"><span class="program-p">P</span>rograms</div>
+                  </div>
+                  <div class="start-menu-options" @click="documents = !documents">
+                    <img src="https://web.archive.org/web/20230411005324im_/https://vile.sh/images/icons/57b0bd8e54eef5b558ce88a8_Documents-2032x32.png" width="41">
+                    <div class="programs start-menu-options-text"><u>D</u>ocuments</div>
+                    <img class="menu-arrow documents" src="https://web.archive.org/web/20230411005324im_/https://vile.sh/images/icons/57b124d371bead8852ab0e91_Menu-20Arrow.png" width="16">
+                  </div>
+                  <div class="start-menu-options">
+                    <img src="https://web.archive.org/web/20230411005324im_/https://vile.sh/images/icons/57b0bd8ee18710ca16498bb6_Settings-2032x32.png" width="41">
+                    <div class="programs start-menu-options-text"><u>S</u>ettings</div>
+                  </div>
+                  <div class="start-menu-options">
+                    <img src="https://web.archive.org/web/20230411005324im_/https://vile.sh/images/icons/57b1c4421fd32dc352b2e255_Find-2032x32.png" width="41">
+                    <div class="programs start-menu-options-text"><u>F</u>ind</div>
+                  </div>
+                  <div class="start-menu-options">
+                    <img src="https://web.archive.org/web/20230411005324im_/https://vile.sh/images/icons/57b1c442ec62b90517b967cc_Help-2032x32.png" width="41">
+                    <div class="programs start-menu-options-text"><u>H</u>elp</div>
+                  </div>
+                  <div class="start-menu-options">
+                    <img src="https://web.archive.org/web/20230411005324im_/https://vile.sh/images/icons/57b0bd8e54eef5b558ce88aa_Run-2032x32.png" width="41">
+                    <div class="programs start-menu-options-text"><u>R</u>un</div>
+                  </div>
+                  <a @click="showLogin = true, menu = false" style="color:black; border-top: 1px solid #808080;" class="shutdown start-menu-options">
+                    <img src="https://web.archive.org/web/20230411005324im_/https://vile.sh/images/icons/57b0bd8e71bead8852aa8020_Shut-20Down-2032x32.png" width="41">
+                    <div class="programs shutdown start-menu-options-text">Shut Down...</div>
+                  </a>
+                </div>
+<!-- DOCUMENTS SECTION -->
+<template x-if="documents">
+  <div class="settings-wrapper" style="display: block;">
+
+<div class="control-panel-button" @click="selectedFolder = 'pastes'; documents = false;">
+      <img src="https://www.rw-designer.com/icon-image/20093-256x256x8.png" width="22">
+      <div class="setting-options-text">Pastes</div>
+    </div>
+
+    <div class="control-panel-button" @click="selectedFolder = 'leaks'; documents = false;">
+      <img src="https://www.rw-designer.com/icon-image/20093-256x256x8.png" width="22">
+      <div class="setting-options-text">Leaks</div>
+    </div>
+
+    <div class="control-panel-button" @click="selectedFolder = 'tools'; documents = false;">
+      <img src="https://www.rw-designer.com/icon-image/20093-256x256x8.png" width="22">
+      <div class="setting-options-text">Tools</div>
+    </div>
+
+    <div class="control-panel-button" @click="selectedFolder = 'databases'; documents = false;">
+      <img src="https://www.rw-designer.com/icon-image/20093-256x256x8.png" width="22">
+      <div class="setting-options-text">Databases</div>
+    </div>
+
+  </div>
+</template>
+
+
+<!-- PASTES SECTION -->
+<template x-if="selectedFolder === 'pastes'">
+  <div class="settings-wrapper" style="display: block;">
+
+    <div class="control-panel-button" @click="window.open('https://1-800.sh', '_blank')">
+      <img src="https://www.rw-designer.com/icon-image/20093-256x256x8.png" width="22">
+      <div class="setting-options-text">Coming soon</div>
+    </div>
+
+    <div class="control-panel-button" @click="window.open('https://1-800.sh', '_blank')">
+      <img src="https://www.rw-designer.com/icon-image/20093-256x256x8.png" width="22">
+      <div class="setting-options-text">Coming soon</div>
+    </div>
+
+    <div class="control-panel-button" @click="window.open('https://1-800.sh', '_blank')">
+      <img src="https://www.rw-designer.com/icon-image/20093-256x256x8.png" width="22">
+      <div class="setting-options-text">Coming soon</div>
+    </div>
+
+    <div class="control-panel-button" @click="selectedFolder = ''; documents = true;">
+      <img src="https://www.rw-designer.com/icon-image/20093-256x256x8.png" width="22">
+      <div class="setting-options-text">Back</div>
+    </div>
+
+  </div>
+</template>
+        </template>
+        <div class="toolbar-separator"></div>
+
+        <div class="toolbar-left">
+
+          <button class="toolbar-icon scrapted" onclick="showPopup('PopUpSca')"></button>
+          <div class="window draggable" id="PopUpSca"
+            style="margin: 32px; width: 250px; display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div class="title-bar">
+              <div class="title-bar-text">Scrapted</div>
+              <div class="title-bar-controls">
+                <button class="ScaClose" aria-label="Close"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <center>
+                <img src="Members/scrapted.png" class="profile-pic" height="48px" width="48px">
+                <p>Owner of this bitch.</p>
+                <section class="field-row" style="justify-content: center">
+                  <button class="ScaOK" aria-label="OK" style="margin-top:10px;">OK</button>
+                </section>
+              </center>
+            </div>
+          </div>
+		  
+          <button class="toolbar-icon correction" onclick="showPopup('PopUpNov')"></button>
+          <div class="window draggable" id="PopUpNov"
+            style="margin: 32px; width: 250px; display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div class="title-bar">
+              <div class="title-bar-text">Hatred</div>
+              <div class="title-bar-controls">
+                <button class="NovClose" aria-label="Close"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <center>
+                <img src="Members/pure.png" class="profile-pic" height="48px" width="48px">
+                <p>You can run but you cant hide, I have eyes everywhere.</p>
+                <section class="field-row" style="justify-content: center">
+                  <button class="NovOK" aria-label="OK" style="margin-top:10px;">OK</button>
+                </section>
+              </center>
+            </div>
+          </div>
+		  
+          <button class="toolbar-icon err" onclick="showPopup('PopUpVayne')"></button>
+          <div class="window draggable" id="PopUpVayne"
+            style="margin: 32px; width: 250px; display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div class="title-bar">
+              <div class="title-bar-text">Wayne</div>
+              <div class="title-bar-controls">
+                <button class="VayneClose" aria-label="Close"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <center>
+                <img src="Members/wayne.png" class="profile-pic" height="48px" width="48px">
+                <p>
+                  Justice.
+                  </br>
+                 </p>
+                <section class="field-row" style="justify-content: center">
+                  <button class="VayneOK" aria-label="OK" style="margin-top:10px;">OK</button>
+                </section>
+              </center>
+            </div>
+          </div>
+		  
+		  <button class="toolbar-icon owned" onclick="showPopup('PopUpDemeter')"></button>
+          <div class="window draggable" id="PopUpDemeter"
+            style="margin: 32px; width: 250px; display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div class="title-bar">
+              <div class="title-bar-text">Savior</div>
+              <div class="title-bar-controls">
+                <button class="DemeterClose" aria-label="Close"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <center>
+                <img src="Members/savior.png" class="profile-pic" height="48px" width="48px">
+                <p>
+                  I'm just here to help.
+                  </br>
+                 </p>
+                <section class="field-row" style="justify-content: center">
+                  <button class="DemeterOK" aria-label="OK" style="margin-top:10px;">OK</button>
+                </section>
+              </center>
+            </div>
+          </div>
+
+          <button class="toolbar-icon outlook" onclick="showPopup('PopUpReiko')"></button>
+          <div class="window draggable" id="PopUpReiko"
+            style="margin: 32px; width: 250px; display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div class="title-bar">
+              <div class="title-bar-text">Immunity</div>
+              <div class="title-bar-controls">
+                <button class="ReikoClose" aria-label="Close"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <center>
+                <img src="Members/immunity.png" class="profile-pic" height="48px" width="48px">
+                <p>i love cats</p>
+                <section class="field-row" style="justify-content: center">
+                  <button class="ReikoOK" aria-label="OK" style="margin-top:10px;">OK</button>
+                </section>
+              </center>
+            </div>
+          </div>
+
+          <button class="toolbar-icon haunt" onclick="showPopup('PopUpConvict')"></button>
+          <div class="window draggable" id="PopUpConvict"
+            style="margin: 32px; width: 250px; display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div class="title-bar">
+              <div class="title-bar-text">Haunt</div>
+              <div class="title-bar-controls">
+                <button class="ConvictClose" aria-label="Close"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <center>
+                <img src="Members/haunt.png" class="profile-pic" height="48px" width="48px">
+                <p>Fuck the human realm.</p>
+                <section class="field-row" style="justify-content: center">
+                  <button class="ConvictOK" aria-label="OK" style="margin-top:10px;">OK</button>
+                </section>
+              </center>
+            </div>
+          </div>
+
+          <button class="toolbar-icon wanted" onclick="showPopup('PopUpIntel')"></button>
+          <div class="window draggable" id="PopUpIntel"
+            style="margin: 32px; width: 250px; display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div class="title-bar">
+              <div class="title-bar-text">Cold</div>
+              <div class="title-bar-controls">
+                <button class="IntelClose" aria-label="Close"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <center>
+                <img src="Members/cold.png" class="profile-pic" height="48px" width="48px">
+                <p>
+                  Nothing ever happens.
+                  </br>
+                 </p>
+                <section class="field-row" style="justify-content: center">
+                  <button class="IntelOK" aria-label="OK" style="margin-top:10px;">OK</button>
+                </section>
+              </center>
+            </div>
+          </div>
+		  
+		            <button class="toolbar-icon kyle" onclick="showPopup('PopUpKyle')"></button>
+          <div class="window draggable" id="PopUpKyle"
+            style="margin: 32px; width: 250px; display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div class="title-bar">
+              <div class="title-bar-text">Kyle</div>
+              <div class="title-bar-controls">
+                <button class="KyleClose" aria-label="Close"></button>
+              </div>
+            </div>
+            <div class="window-body">
+              <center>
+                <img src="Members/kyle.png" class="profile-pic" height="48px" width="48px">
+                <p>
+                  This world is vain. nothing here is sacred.
+                  </br>
+                 </p>
+                <section class="field-row" style="justify-content: center">
+                  <button class="KyleOK" aria-label="OK" style="margin-top:10px;">OK</button>
+                </section>
+              </center>
+            </div>
+          </div>
+
+
+      </div>
+
+        <audio id="audio" preload="none" tabindex="0">
+          <source src="songs/audio.mp3" data-track-number="1" />
+          <source src="songs/audio2.mp3" data-track-number="2" />
+          <source src="songs/audio3.mp3" data-track-number="3" />
+          <source src="songs/audio4.mp3" data-track-number="4" />
+          <source src="songs/audio5.mp3" data-track-number="5" />
+          <source src="songs/audio6.mp3" data-track-number="6" />
+          <source src="songs/audio7.mp3" data-track-number="7" />
+
+        </audio>
+
+        <ul id="trackList" style="display: none;">
+          <li data-track-number="1">Eryxse - Hall Of Autism</li>
+          <li data-track-number="2">akkiemi - Truth Yandere</li>
+          <li data-track-number="3">HXNJV - NECROMORPH</li>
+          <li data-track-number="4">chanelfather - ILUVMYSELF</li>
+          <li data-track-number="5">schizocat - push n pull</li>
+          <li data-track-number="6">keepsecrets - anemic</li>
+          <li data-track-number="7">44seraphim feat. chlorofilm - angelz neva die</li>
+        </ul>
+
+        <div class="window volume" id="volume" style="position: fixed; width: 200px; display: none;">
+          <div class="title-bar">
+            <div class="title-bar-text">Volume</div>
+          </div>
+          <div class="window-body">
+            <p> Currently playing:</p>
+            <ul id="songInfo">
+              <li id="songTitle">Eryxse - Hall Of Autism</li>
+              <li id="songTime">0:00</li>
+              <li><input id="range26" type="range" min="0" max="50" value="50" /></li>
+            </ul>
+          </div>
+          <div class="status-bar">
+            <p id="backward" class="status-bar-field fa-solid fa-backward"></p>
+            <p id="pause" class="status-bar-field fa-solid fa-pause"></p>
+            <p id="forward" class="status-bar-field fa-solid fa-forward"></p>
+          </div>
+
+        </div>
+
+        <div class="toolbar-separator"></div>
+        <div class="toolbar-right field-row" style="width: 106px;">
+          <img src="images/sound.png" alt="Tab" onclick="togglePopup('volume')" height="24" width="">
+
+          <div class="time"><span class="hour"></span>:<span class="minutes"></span> AM</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+<script>
+  var snowContainer = document.getElementById('snow-container');
+  var flakes = [];
+  var flakesCount = 100;
+
+  function random(min, max) { return min + Math.random() * (max - min); }
+
+  function createFlake() {
+    var flake = document.createElement('div');
+    flake.className = 'snowflake';
+    flake.style.width = random(1, 6) + 'px';
+    flake.style.height = random(1, 3) + 'px';
+    flake.dataset.speed = random(0.5, 2);
+    flake.dataset.x = Math.random() * window.innerWidth;
+    flake.dataset.y = Math.random() * window.innerHeight;
+    snowContainer.appendChild(flake);
+    flakes.push(flake);
+    setTimeout(function () { flake.style.opacity = random(0.6, 1); }, 50);
+  }
+
+  function startSnow() { for (var i = 0; i < flakesCount; i++) createFlake(); animateSnow(); }
+
+  function animateSnow() {
+    flakes.forEach(function (f) {
+      f.dataset.y = +f.dataset.y + +f.dataset.speed;
+      if (+f.dataset.y > window.innerHeight) f.dataset.y = -10;
+      f.style.transform = 'translate(' + f.dataset.x + 'px,' + f.dataset.y + 'px)';
+    });
+    requestAnimationFrame(animateSnow);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    startSnow();
+  });
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"168b0d830471493b9e455c6121e78a1a","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+
+</html>

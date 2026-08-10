@@ -1,208 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
+
+<!DOCTYPE html>   
+<html lang="en">  
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Cache-control" content="public">
-    <meta name="theme-color" content="#008080">
-    <title>「rezi.lol」</title>
-    <link rel="icon" href="icons/logo.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
 
-    <link rel="stylesheet" href="src/styles/reset.css">
-    <link rel="stylesheet" href="src/styles/system.css">
-    <link rel="stylesheet" href="src/styles/taskbar.css">
-    <link rel="stylesheet" href="src/styles/desktop.css">
-    <link rel="stylesheet" href="src/styles/window.css">
-    <link rel="stylesheet" href="src/styles/startmenu.css">
-    <link rel="stylesheet" href="src/styles/boot.css">
-    <link rel="stylesheet" href="src/styles/kernel.css">
-    <link rel="stylesheet" href="src/styles/login.css">
-    <link rel="stylesheet" href="src/styles/clippy.css">
-    <link rel="stylesheet" href="src/styles/crt.css">
+        <link rel="preload" href="WOFF/FreeSerif-YO4a.woff" as="font" type="font/woff">
+        <link rel="preload" href="WOFF/jackeyfont.woff" as="font" type="font/woff">
+        <link rel="preload" href="index.css" as="style">
+        <link rel="preload" href="crt.css" as="style">          
+        <link rel="preload" href="loading.css" as="style">
+            <link rel="stylesheet" href="index.css">
+            <link rel="stylesheet" href="crt.css">
+            <link rel="stylesheet" href="loading.css">
 
-    <link rel="stylesheet" href="src/styles/about.css">
-    <link rel="stylesheet" href="src/styles/links.css">
-    <link rel="stylesheet" href="src/styles/scripts.css">
-    <link rel="stylesheet" href="src/styles/repos.css">
-    <link rel="stylesheet" href="src/styles/friends.css">
-    <link rel="stylesheet" href="src/styles/terminal.css">
-    <link rel="stylesheet" href="src/styles/calculator.css">
+    <link rel="icon" href="favicon.html" type="image/x-icon">
+
+    <title>「1-800」</title>
+    <meta name="theme-color" content="#000">
+
+    <meta property="og:title" content="「1-800」"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:description" content="$VLH$"/>
 </head>
 
 <body>
 
-    <div id="boot-screen">
-        <div class="bios-header">
-            <div class="bios-text">
-                <div>waifu Modular BIOS v4.51PG, An Energy Star Ally</div>
-                <div>Copyright (C) 1984-98, Waifu Inc.</div>
+<crt id="crt">   
+
+</crt>
+
+<div class="load">        
+    <div class="ichi 一">
+        <h1 class="" style="float: left; margin: 0.5em;">1-800<br>FaggotCentral</h1>
+        <img src="images/cock.gif" alt="faggot" style="height: 128px; float: right; padding: 1em;">
+            <p style="display: inline-block; text-align: left; padding-left: 1em; padding-top: 50px; font-size: 1.3em;">1-800 (C)2024-2026 KL & Scrapted. All Rights Reserved.</p><br>
+            <br><br>
+            <p style="padding-left: 1em; font-size: 1.3em;">Greetings Hackers, -1-800</p> <br>
+            <br>
+            <br>
+            <div class="anim-typewriter" style="padding-left: 1em; font-size: 1.3em;">
+                <p>[ <em class="green">OK</em> ]  &nbsp;Summoning the dox goblins......</p></br>
             </div>
-            <img src="icons/logo.svg" class="bios-logo-img" alt="rezi">
-        </div>
-
-        <div class="bios-info">
-            Main Processor : 486DX2-66<br>
-            Video Adapter : ASCII Graphics Adapter<br>
-            Memory Test: <span id="bios-mem">0</span>
-        </div>
-
-        <div class="bios-drives">
-            Detecting Primary Master ... WAIFU-HD 20GB<br>
-            Detecting Primary Slave ... None<br>
-            Detecting Secondary Master ... CD-ROM Drive<br>
-            Detecting Secondary Slave ... None
-        </div>
-
-        <div class="bios-footer" id="bios-footer" style="display:none">
-            Starting waifuOS 98 SE...
-        </div>
-
-        <div class="bios-cursor"></div>
+            <div class="anim" style="padding-left: 1em; font-size: 1.3em;">
+                <p>[ <em class="green">OK</em> ]  &nbsp;Loading retard$quad...</p></br>
+            </div>
+            <div class="anim2" style="padding-left: 1em; font-size: 1.3em;">
+                <p>[ <em class="red">FAILED</em> ]  &nbsp;Failed to dox:&nbsp;Felix764...</p></br>
+            </div>
+            
+            <br>
+            <br>
+            </span><br>
+            <br>
+            <p style="padding-left: 1em; font-size: 1.3em; color: red">
+            New era coming soon ...<br>
+            Will we take over?
+            </p>
     </div>
-
-    <div class="desktop-area">
-        <div class="desktop-icon" tabindex="0" data-window="window-about">
-            <img src="icons/sobreMim.svg" alt="About Me">
-            <span>About Me</span>
-        </div>
-
-        <div class="desktop-icon" tabindex="0" data-window="window-links">
-            <img src="icons/internet.png" alt="Links">
-            <span>Links</span>
-        </div>
-
-        <div class="desktop-icon" tabindex="0" data-window="window-scripts">
-            <img src="icons/notepad.ico" alt="Scripts">
-            <span>Scripts</span>
-        </div>
-
-        <div class="desktop-icon" tabindex="0" data-window="window-repos">
-            <img src="icons/github.svg" alt="Repos">
-            <span>Repos</span>
-        </div>
-
-        <div class="desktop-icon" tabindex="0" data-window="window-friends">
-            <img src="icons/friends.svg" alt="Friends">
-            <span>Friends</span>
-        </div>
-
-        <div class="desktop-icon" tabindex="0" data-window="window-terminal">
-            <img src="icons/zenzinDOS.svg" alt="Terminal">
-            <span>Terminal</span>
-        </div>
-
-        <div class="desktop-icon" tabindex="0" data-window="window-calculator">
-            <img src="icons/calculator.ico" alt="Calculator">
-            <span>Calculator</span>
-        </div>
+    <div class="ni 二"></div>
+    <div class="san 三"></div>
+    <div class="shi 四">
+        <div class="window 四">
+            <div class="logo">
+              <p class="top">1-800.sh</p>
+              <p class="mid">1-800<span>OS</span></p>
+              <p class="bottom">Reborn</p>
+            </div>
+            <div class="container">
+              <div class="box"></div>
+              <div class="box"></div>
+              <div class="box"></div>
+            </div>
+          </div>
     </div>
+    <meta http-equiv="refresh" content="5; URL=1800.html" />
 
-    <div class="start-menu" id="start-menu">
-        <div class="sidebar">
-            <span class="sidebar-text"><strong>waifuOS</strong> 98 SE</span>
-        </div>
-
-        <div class="menu-items">
-            <div class="menu-item has-submenu">
-                <img src="icons/logo.svg" class="menu-icon">
-                <span style="flex: 1;">Programs</span>
-                <span class="menu-arrow">▶</span>
-
-                <div class="submenu">
-                    <div class="menu-item" onclick="openWindow('window-terminal'); toggleStartMenu()">
-                        <img src="icons/zenzinDOS.svg" class="menu-icon">
-                        <span>waifuOS Terminal</span>
-                    </div>
-                    <div class="menu-item" onclick="openWindow('window-scripts'); toggleStartMenu()">
-                        <img src="icons/notepad.ico" class="menu-icon">
-                        <span>Scripts</span>
-                    </div>
-                    <div class="menu-item" onclick="openWindow('window-repos'); toggleStartMenu()">
-                        <img src="icons/github.svg" class="menu-icon">
-                        <span>Repos</span>
-                    </div>
-                    <div class="menu-item" onclick="openWindow('window-friends'); toggleStartMenu()">
-                        <img src="icons/friends.svg" class="menu-icon">
-                        <span>Friends</span>
-                    </div>
-                    <div class="menu-item" onclick="openWindow('window-links'); toggleStartMenu()">
-                        <img src="icons/internet.png" class="menu-icon">
-                        <span>Links</span>
-                    </div>
-                    <div class="menu-item" onclick="openWindow('window-calculator'); toggleStartMenu()">
-                        <img src="icons/calculator.ico" class="menu-icon">
-                        <span>Calculator</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="menu-separator"></div>
-
-            <div class="menu-item" onclick="openWindow('window-about'); toggleStartMenu()">
-                <img src="icons/sobreMim.svg" class="menu-icon">
-                <span>About Me</span>
-            </div>
-
-            <div class="menu-item" id="menu-github">
-                <img src="icons/github.svg" class="menu-icon">
-                <span>My GitHub</span>
-            </div>
-
-            <div class="menu-separator"></div>
-
-            <div class="menu-item" onclick="openWindow('window-terminal'); toggleStartMenu()">
-                <img src="icons/zenzinDOS.svg" class="menu-icon">
-                <span>System Info (neofetch)</span>
-            </div>
-
-            <div class="menu-separator"></div>
-
-            <div class="menu-item" onclick="location.reload()">
-                <img src="icons/restart.ico" class="menu-icon">
-                <span>Restart System...</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="taskbar">
-        <button class="start-button">
-            <img src="icons/logo.svg" alt="" class="start-icon">
-            <span class="start-text">Start</span>
-        </button>
-        <div class="taskbar-divider"></div>
-        <div class="tasks-area"></div>
-        <div class="tray-area">
-            <div class="clock">00:00</div>
-        </div>
-    </div>
-
-    <div class="crt-overlay active effect-vga"></div>
-
-    <script type="module" src="src/App.js"></script>
-    <script>
-        /* github menu item -> config profile socials */
-        document.addEventListener('DOMContentLoaded', function () {
-            var btn = document.getElementById('menu-github');
-            if (!btn) return;
-            btn.addEventListener('click', function () {
-                fetch('config.json', { cache: 'no-store' })
-                    .then(function (r) { return r.json(); })
-                    .then(function (cfg) {
-                        var socials = (cfg.profile && cfg.profile.socials) || [];
-                        var url = 'https://github.com/';
-                        for (var i = 0; i < socials.length; i++) {
-                            if (socials[i].type === 'github') { url = socials[i].url || url; break; }
-                        }
-                        window.open(url, '_blank');
-                        var sm = document.getElementById('start-menu');
-                        if (sm) sm.classList.remove('active');
-                        var sb = document.querySelector('.start-button');
-                        if (sb) sb.classList.remove('active');
-                    });
-            });
-        });
-    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"168b0d830471493b9e455c6121e78a1a","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</crt>
 </body>
 
 </html>
